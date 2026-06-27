@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "VMMRdb Classifier",
+    "description": "Vehicle make/model classifier (ResNet50, VMMRdb) with optional YOLO detection. Two endpoints: GET /health, POST /predict.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://localhost:8000"}
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"]}
+      }
+    },
+    {
+      "name": "Predict - image",
+      "request": {
+        "method": "POST",
+        "url": {"raw": "{{baseUrl}}/predict", "host": ["{{baseUrl}}"], "path": ["predict"]},
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "files", "type": "file", "src": []}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict - image + detect",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/predict?detect=true&topk=5",
+          "host": ["{{baseUrl}}"], "path": ["predict"],
+          "query": [
+            {"key": "detect", "value": "true"},
+            {"key": "topk", "value": "5"}
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "files", "type": "file", "src": []}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict - video",
+      "request": {
+        "method": "POST",
+        "url": {"raw": "{{baseUrl}}/predict", "host": ["{{baseUrl}}"], "path": ["predict"]},
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "files", "type": "file", "src": []}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict - zip batch",
+      "request": {
+        "method": "POST",
+        "url": {"raw": "{{baseUrl}}/predict", "host": ["{{baseUrl}}"], "path": ["predict"]},
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "files", "type": "file", "src": []}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict - stream URL",
+      "request": {
+        "method": "POST",
+        "url": {"raw": "{{baseUrl}}/predict", "host": ["{{baseUrl}}"], "path": ["predict"]},
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "urls", "type": "text", "value": "rtsp://cam.example.com/stream"}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Predict - multi (files + url)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/predict?topk=5&detect=false",
+          "host": ["{{baseUrl}}"], "path": ["predict"],
+          "query": [
+            {"key": "topk", "value": "5"},
+            {"key": "detect", "value": "false"}
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "files", "type": "file", "src": []},
+            {"key": "files", "type": "file", "src": []},
+            {"key": "urls", "type": "text", "value": "rtsp://cam.example.com/stream"}
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -28,10 +28,12 @@ Source (data/CompCars/):
   doesn't match ^(19|20)\\d{2}$ the year is DROPPED from the slug rather than
   embedded verbatim (avoids e.g. "..._0" or "..._unknown" class name noise).
 
-  SKIPPED entirely: data/sv_data* (surveillance images, no per-model
-  labels), data/part (car part crops, not whole-car classification),
-  data/label (bbox annotations -- unused, whole image is symlinked to match
-  VMMRdb style, same choice as stanfordcars.py).
+  SKIPPED by this script: data/sv_data* (surveillance images -- these DO
+  have make/model labels via sv_make_model_name.mat, just no year; converted
+  separately by the sibling compcars_sv.py -> data/compcars_sv_vmmr/),
+  data/part (car part crops, not whole-car classification), data/label
+  (bbox annotations -- unused, whole image is symlinked to match VMMRdb
+  style, same choice as stanfordcars.py).
 
 Output:
   DATA/compcars_vmmr/<slug>/<slug>_<idx>.jpg  (symlinks to originals)

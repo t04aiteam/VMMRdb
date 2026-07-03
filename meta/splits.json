@@ -14,7 +14,7 @@
     "classes_pruned_sparse": 526,
     "corrupt_dropped": 1,
     "near_dup_dropped": 118,
-    "cross_class_poison_dropped": 46626,
+    "cross_class_poison_dropped": 0,
     "images_final": 53216,
     "train": 39100,
     "val": 7058,

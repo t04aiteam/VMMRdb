@@ -13,10 +13,19 @@
 import argparse
 from pathlib import Path
 
+import torch
 from ultralytics import YOLO
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = ROOT / "weights" / "vehicle" / "vehicle_yolov9s_640_30oct2025.pt"
+
+
+def pick_device():
+    if torch.cuda.is_available():
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
 
 
 def main():
@@ -29,7 +38,8 @@ def main():
     src = Path(a.src)
 
     model = YOLO(str(MODEL_PATH))
-    device = "mps"
+    device = pick_device()
+    print("device:", device)
 
     classes = sorted(d for d in src.iterdir() if d.is_dir())
     print(f"{len(classes)} classes in {src}")

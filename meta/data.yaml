@@ -3,20 +3,19 @@
 # Images: DuckDuckGo image search (keyless), 40 target/class
 # Dedup: pHash (size=8, near=5 Hamming); cross-class poison dropped
 #
-# classes_in: 3472
-# classes_pruned_sparse: 677  (< 15 images after dedup)
-# classes_final: 2363
-# near_dup_dropped: 141
-# cross_class_poison_dropped: 31315
-# images_final: 61680
-# train: 45420  val: 8130  test: 8130
+# classes_in: 3484
+# classes_pruned_sparse: 526  (< 15 images after dedup)
+# classes_final: 1977
+# near_dup_dropped: 118
+# cross_class_poison_dropped: 46626
+# images_final: 53216
+# train: 39100  val: 7058  test: 7058
 #
-nc: 2363
+nc: 1977
 names:
   - acura_legend_2002
   - audi_a1_2010
   - audi_a4_2008
-  - audi_a4_2014
   - audi_a4_2015
   - audi_a4_2016
   - audi_a4_2022
@@ -30,168 +29,132 @@ names:
   - audi_a6_2022
   - audi_a6_2023
   - audi_a7_2022
+  - audi_a7_2024
   - audi_a8l_2014
   - audi_q2_2017
   - audi_q2_2019
-  - audi_q3_2015
   - audi_q3_2016
   - audi_q5_2010
   - audi_q5_2011
-  - audi_q5_2012
   - audi_q5_2013
   - audi_q5_2014
+  - audi_q5_2015
   - audi_q5_2016
+  - audi_q5_2017
   - audi_q5_2021
   - audi_q7_2008
   - audi_q7_2010
-  - audi_q7_2012
   - audi_q7_2015
   - audi_q7_2016
   - audi_q7_2017
-  - audi_q7_2025
+  - audi_q7_2020
   - audi_q8_2021
-  - audi_q8_2023
   - audi_q8_2024
   - audi_tt_2008
   - audi_tt_2015
+  - audi_tt_2016
+  - audi_tt_2017
   - baic_beijing_x7_2022
   - benelli_tnt125_thanh_pho_2018
+  - benelli_tnt125_thanh_pho_2020
+  - benelli_tnt_125_em_2018
+  - benelli_tnt_125_em_2020
+  - benelli_tnt_125_em_2021
   - bentley_continental_2004
-  - bentley_continental_2008
   - bmw_1_series_2016
   - bmw_1_series_2018
-  - bmw_2_series_2015
   - bmw_2_series_2016
-  - bmw_2_series_2018
   - bmw_3_series_2004
   - bmw_3_series_2008
+  - bmw_3_series_2009
   - bmw_3_series_2010
   - bmw_3_series_2011
-  - bmw_3_series_2013
-  - bmw_3_series_2014
-  - bmw_3_series_2015
-  - bmw_3_series_2016
   - bmw_3_series_2022
-  - bmw_3_series_2023
   - bmw_3_series_2024
   - bmw_3_series_2025
-  - bmw_4_series_2013
   - bmw_4_series_2016
   - bmw_4_series_2019
-  - bmw_4_series_2023
   - bmw_4_series_2026
+  - bmw_5_series_2002
+  - bmw_5_series_2009
   - bmw_5_series_2011
   - bmw_5_series_2013
   - bmw_5_series_2015
+  - bmw_5_series_2016
   - bmw_5_series_2017
   - bmw_5_series_2019
   - bmw_5_series_2020
-  - bmw_5_series_2021
-  - bmw_5_series_2022
   - bmw_5_series_2023
   - bmw_7_series_2007
-  - bmw_7_series_2008
   - bmw_7_series_2011
-  - bmw_7_series_2018
   - bmw_7_series_2021
-  - bmw_7_series_2022
   - bmw_7_series_2023
   - bmw_7_series_2025
-  - bmw_x1_2016
   - bmw_x3_2013
-  - bmw_x3_2014
   - bmw_x3_2016
-  - bmw_x3_2019
   - bmw_x3_2023
-  - bmw_x3_2026
-  - bmw_x4_2016
-  - bmw_x4_2018
-  - bmw_x4_2023
+  - bmw_x3_2025
   - bmw_x5_2005
   - bmw_x5_2006
   - bmw_x5_2007
   - bmw_x5_2008
   - bmw_x5_2009
   - bmw_x5_2022
-  - bmw_x5_2024
   - bmw_x6_2008
   - bmw_x6_2009
-  - bmw_x6_2010
   - bmw_x6_2018
-  - bmw_x6_2023
   - bmw_z4_2013
-  - bmw_z4_2021
   - bmw_z4_2022
   - bmw_z4_2023
   - bmw_z4_roadster_2021
-  - brixton_bx_150_2018
-  - brixton_bx_150_2020
+  - brixton_luon_tai_cua_2021
   - byd_dolphin_2026
   - byd_m6_2025
   - byd_m6_2026
   - byd_sealion_6_2025
   - byd_sealion_6_2026
   - cadillac_escalade_2014
-  - cadillac_escalade_2015
   - chery_jaecoo_j7_2025
   - chery_jaecoo_j7_2026
   - chery_omoda_c5_2026
   - chevrolet_aveo_2009
   - chevrolet_aveo_2011
+  - chevrolet_aveo_2012
   - chevrolet_aveo_2014
-  - chevrolet_aveo_2015
   - chevrolet_aveo_2016
   - chevrolet_aveo_2017
-  - chevrolet_aveo_2018
   - chevrolet_captiva_2007
-  - chevrolet_captiva_2009
   - chevrolet_captiva_2010
-  - chevrolet_captiva_2013
   - chevrolet_captiva_2015
-  - chevrolet_captiva_2017
   - chevrolet_colorado_2015
-  - chevrolet_colorado_2016
   - chevrolet_colorado_2017
   - chevrolet_colorado_2018
   - chevrolet_colorado_2019
+  - chevrolet_colorado_2020
   - chevrolet_cruze_2010
   - chevrolet_cruze_2011
   - chevrolet_cruze_2014
   - chevrolet_cruze_2015
-  - chevrolet_cruze_2016
-  - chevrolet_cruze_2017
-  - chevrolet_lacetti_2004
+  - chevrolet_cruze_2018
   - chevrolet_lacetti_2005
-  - chevrolet_lacetti_2007
   - chevrolet_lacetti_2009
-  - chevrolet_lacetti_2010
-  - chevrolet_lacetti_2011
-  - chevrolet_lacetti_2012
-  - chevrolet_lacetti_2013
-  - chevrolet_matiz_2009
+  - chevrolet_orlando_2016
   - chevrolet_orlando_2017
   - chevrolet_spark_2006
   - chevrolet_spark_2008
   - chevrolet_spark_2010
+  - chevrolet_spark_2011
   - chevrolet_spark_2012
-  - chevrolet_spark_2013
   - chevrolet_spark_2014
-  - chevrolet_spark_2015
   - chevrolet_spark_2016
-  - chevrolet_spark_2018
-  - chevrolet_trailblazer_2008
-  - chevrolet_trailblazer_2018
-  - chevrolet_trailblazer_2019
-  - chevrolet_trax_2016
-  - chevrolet_trax_2017
-  - chevrolet_vivant_2008
+  - chevrolet_spark_2017
   - chevrolet_vivant_2009
-  - daewoo_gentra_2008
+  - daewoo_gentra_2009
+  - daewoo_gentra_2010
+  - daewoo_gentrax_2008
   - daewoo_lacetti_2004
   - daewoo_lacetti_2005
   - daewoo_lacetti_2009
-  - daewoo_lacetti_2010
-  - daewoo_lacetti_2011
   - daewoo_lanos_2002
   - daewoo_lanos_2003
   - daewoo_lanos_2004
@@ -200,150 +163,119 @@ names:
   - daewoo_magnus_2004
   - daewoo_magnus_2005
   - daewoo_magnus_2007
-  - daewoo_matiz_1998
+  - daewoo_matiz_1999
   - daewoo_matiz_2000
-  - daewoo_matiz_2002
-  - daewoo_matiz_2003
-  - daewoo_matiz_2004
-  - daewoo_matiz_2005
   - daewoo_matiz_2006
   - daewoo_matiz_2007
   - daewoo_matiz_2008
   - daewoo_matiz_2011
-  - daewoo_nubira_2000
-  - daewoo_nubira_2001
-  - daewoo_nubira_2002
   - daewoo_nubira_2003
   - daewoo_nubira_2005
   - daihatsu_citivan_2002
   - daihatsu_citivan_2004
   - daihatsu_citivan_2005
+  - daihatsu_terios_2004
   - daihatsu_terios_2005
+  - dat_bike_quantum_s3_2025
+  - dat_bike_quantum_s3_2026
+  - detech_vespa_50cc_2018
+  - detech_vespa_50cc_2024
+  - dibao_50cc_2019
+  - dibao_50cc_2020
   - dibao_50cc_2024
-  - dk_bike_roma_sx_2024
   - dongfeng_hoang_huy_2015
   - dongfeng_hoang_huy_2019
-  - ducati_scrambler_mini_110_2018
-  - ducati_scrambler_mini_110_2019
   - espero_50cc_2023
-  - espero_50cc_2024
   - espero_50cc_2025
   - faw_tiger_2025
   - faw_tiger_2026
   - fiat_siena_2003
+  - ford_caravan_2008
   - ford_caravan_2011
   - ford_ecosport_2014
-  - ford_ecosport_2016
+  - ford_ecosport_2015
+  - ford_ecosport_2017
   - ford_ecosport_2018
-  - ford_ecosport_2019
-  - ford_ecosport_2020
+  - ford_ecosport_2021
   - ford_ecosport_2022
-  - ford_escape_2001
-  - ford_escape_2002
   - ford_escape_2003
-  - ford_escape_2004
   - ford_escape_2005
-  - ford_escape_2007
   - ford_escape_2008
+  - ford_escape_2009
   - ford_escape_2010
   - ford_escape_2011
+  - ford_escape_2012
+  - ford_escape_2025
   - ford_everest_2005
   - ford_everest_2006
-  - ford_everest_2007
-  - ford_everest_2008
+  - ford_everest_2009
   - ford_everest_2010
   - ford_everest_2011
-  - ford_everest_2012
   - ford_everest_2013
+  - ford_everest_2014
   - ford_everest_2015
-  - ford_everest_2016
-  - ford_everest_2017
   - ford_everest_2018
-  - ford_everest_2019
-  - ford_everest_2020
-  - ford_everest_2021
   - ford_everest_2022
   - ford_everest_2023
-  - ford_everest_2024
   - ford_everest_2025
   - ford_everest_2026
+  - ford_explorer_2017
   - ford_explorer_2020
   - ford_explorer_2021
   - ford_explorer_2022
   - ford_explorer_2023
-  - ford_f_150_2015
+  - ford_f_150_2019
   - ford_f_150_2020
-  - ford_fiesta_2011
-  - ford_fiesta_2012
-  - ford_fiesta_2013
-  - ford_fiesta_2014
-  - ford_fiesta_2015
   - ford_fiesta_2016
   - ford_fiesta_2018
-  - ford_focus_2007
-  - ford_focus_2009
-  - ford_focus_2010
-  - ford_focus_2011
-  - ford_focus_2012
   - ford_focus_2013
-  - ford_focus_2014
   - ford_focus_2015
   - ford_focus_2016
-  - ford_focus_2017
-  - ford_focus_2018
   - ford_focus_2019
   - ford_laser_2000
   - ford_laser_2001
   - ford_laser_2002
-  - ford_laser_2003
   - ford_laser_2004
   - ford_mondeo_2003
   - ford_mondeo_2004
   - ford_mondeo_2010
   - ford_mondeo_2013
   - ford_mustang_2015
-  - ford_mustang_2020
   - ford_ranger_2005
   - ford_ranger_2006
   - ford_ranger_2008
-  - ford_ranger_2009
   - ford_ranger_2010
-  - ford_ranger_2011
   - ford_ranger_2012
-  - ford_ranger_2013
   - ford_ranger_2014
+  - ford_ranger_2015
   - ford_ranger_2016
-  - ford_ranger_2018
-  - ford_ranger_2019
+  - ford_ranger_2017
   - ford_ranger_2021
+  - ford_ranger_2022
   - ford_ranger_2023
   - ford_ranger_2024
   - ford_ranger_2025
   - ford_ranger_2026
   - ford_territory_2022
-  - ford_territory_2023
+  - ford_territory_2024
   - ford_territory_2025
   - ford_territory_2026
-  - ford_tourneo_2019
   - ford_tourneo_2020
   - ford_tourneo_2021
-  - ford_transit_2005
   - ford_transit_2006
-  - ford_transit_2007
-  - ford_transit_2009
   - ford_transit_2010
+  - ford_transit_2011
+  - ford_transit_2012
   - ford_transit_2013
   - ford_transit_2014
   - ford_transit_2015
-  - ford_transit_2016
   - ford_transit_2017
   - ford_transit_2018
-  - ford_transit_2019
   - ford_transit_2020
   - ford_transit_2021
   - ford_transit_2022
   - ford_transit_2023
-  - ford_transit_2025
+  - ford_transit_2024
   - ford_transit_2026
   - ford_transit_dcar_2018
   - ford_transit_dcar_2019
@@ -359,129 +291,118 @@ names:
   - gac_m8_2024
   - gac_m8_2025
   - geely_coolray_2025
-  - geely_coolray_2026
   - gpx_demon_150gr_2018
   - gpx_demon_150gr_2019
   - gpx_demon_150gr_2020
   - gpx_demon_150gr_2022
   - gpx_gentleman_200_2019
   - gpx_gentleman_200_2020
-  - gpx_gentleman_200_2021
+  - gpx_gentleman_200_2022
   - gpx_legend_150s_2019
   - gpx_legend_150s_2020
   - gpx_legend_150s_2021
+  - gpx_legend_150s_2022
   - gpx_legend_150s_2023
   - gpx_legend_200_2019
   - gpx_legend_200_2020
   - gpx_legend_200_2021
   - halim_50cc_2016
   - halim_50cc_2020
-  - halim_50cc_2021
+  - halim_50cc_2022
   - harley_davidson_48_2019
   - harley_davidson_48_2020
   - haval_h6_2023
   - haval_h6_2024
   - haval_jolion_2025
-  - hino_300_2015
-  - hino_300_2017
   - hino_300_2020
-  - hino_300_2021
-  - hino_500_2013
+  - hino_500_2014
   - hino_500_2015
-  - hino_500_2026
+  - hino_500_fc_2019
+  - hino_500_fc_2025
   - hino_fc9jntc_2019
   - hino_fc9jntc_2022
+  - hino_fc9jntc_2023
   - hino_fc_2007
   - hino_fc_2019
+  - hino_fc_2020
   - hino_fc_2021
-  - hino_fg_2015
+  - hino_fg_2007
+  - hino_fg_2014
+  - hino_fg_2020
+  - hino_fg_2021
   - hino_fg_2022
-  - hino_fl_2015
+  - hino_fl_2022
   - hino_xzu720_2021
-  - hino_xzu720_2022
-  - hino_xzu730l_2020
+  - hino_xzu730l_2021
   - hino_xzu730l_2023
-  - honda_accord_1986
   - honda_accord_1989
   - honda_accord_1991
   - honda_accord_1994
-  - honda_accord_1995
   - honda_accord_1996
-  - honda_accord_2007
-  - honda_accord_2008
-  - honda_accord_2012
-  - honda_accord_2018
   - honda_accord_2019
-  - honda_adv_150_abs_2019
   - honda_adv_150_abs_2020
-  - honda_adv_150_abs_2022
   - honda_adv_160_abs_2023
+  - honda_adv_160_abs_2024
   - honda_adv_160_abs_2025
   - honda_air_blade_2007
   - honda_air_blade_2008
   - honda_air_blade_2009
   - honda_air_blade_2010
-  - honda_air_blade_2011
   - honda_air_blade_2012
   - honda_air_blade_2013
+  - honda_air_blade_2014
+  - honda_air_blade_2015
   - honda_air_blade_2016
   - honda_air_blade_2017
   - honda_air_blade_2018
   - honda_air_blade_2019
-  - honda_air_blade_2020
   - honda_air_blade_2021
   - honda_air_blade_2022
-  - honda_air_blade_2024
+  - honda_air_blade_2023
   - honda_air_blade_2025
   - honda_air_blade_2026
-  - honda_beat_2022
   - honda_beat_2025
   - honda_blade_2011
   - honda_blade_2016
-  - honda_blade_2018
+  - honda_blade_2017
   - honda_blade_2019
   - honda_blade_2022
-  - honda_blade_2025
   - honda_br_v_2023
   - honda_br_v_2024
-  - honda_br_v_2025
-  - honda_brio_2019
   - honda_brio_2020
   - honda_brio_2021
   - honda_brio_2022
+  - honda_cb150_verza_2001
+  - honda_cb150_verza_2006
+  - honda_cb150_verza_2021
+  - honda_cb150_verza_2024
+  - honda_cb150r_2004
+  - honda_cb150r_2010
   - honda_cb150r_2012
-  - honda_cb150r_2017
   - honda_cb150r_2018
   - honda_cb150r_2019
-  - honda_cb150r_2020
-  - honda_cb150r_2021
-  - honda_cb150r_2022
-  - honda_cb150r_2024
-  - honda_cb150r_2025
+  - honda_cb150r_2023
   - honda_cb150r_2026
-  - honda_cbr150r_2008
-  - honda_cbr150r_2014
   - honda_cbr150r_2015
   - honda_cbr150r_2018
-  - honda_cbr150r_2019
   - honda_cbr150r_2020
   - honda_cbr150r_2022
   - honda_cbr150r_2023
   - honda_cbr150r_2025
+  - honda_cd50_may_wave_1995
+  - honda_cd50_may_wave_1999
   - honda_chaly_1980
-  - honda_chaly_1981
-  - honda_chaly_1984
+  - honda_chaly_2007
   - honda_citi_1997
   - honda_citi_1999
   - honda_city_2013
   - honda_city_2014
-  - honda_city_2015
   - honda_city_2016
   - honda_city_2017
   - honda_city_2018
   - honda_city_2019
+  - honda_city_2020
   - honda_city_2021
-  - honda_city_2022
   - honda_city_2023
   - honda_city_2024
   - honda_city_2025
@@ -491,41 +412,33 @@ names:
   - honda_civic_2007
   - honda_civic_2008
   - honda_civic_2009
-  - honda_civic_2010
-  - honda_civic_2011
   - honda_civic_2012
   - honda_civic_2013
   - honda_civic_2016
-  - honda_civic_2017
   - honda_civic_2018
   - honda_civic_2019
   - honda_civic_2020
   - honda_civic_2021
-  - honda_civic_2022
   - honda_civic_2023
+  - honda_civic_2024
+  - honda_civic_2026
   - honda_click_2006
   - honda_click_2007
   - honda_click_2008
   - honda_click_2009
   - honda_click_2010
-  - honda_click_2011
   - honda_click_2012
   - honda_click_2013
-  - honda_click_2015
-  - honda_click_2016
+  - honda_click_2014
   - honda_click_2017
-  - honda_click_2018
-  - honda_click_2019
   - honda_click_2021
+  - honda_cr_v_2008
   - honda_cr_v_2009
-  - honda_cr_v_2010
   - honda_cr_v_2011
-  - honda_cr_v_2012
   - honda_cr_v_2013
   - honda_cr_v_2014
   - honda_cr_v_2016
   - honda_cr_v_2017
-  - honda_cr_v_2018
   - honda_cr_v_2019
   - honda_cr_v_2020
   - honda_cr_v_2021
@@ -535,86 +448,68 @@ names:
   - honda_cr_v_2025
   - honda_cr_v_2026
   - honda_cub_2020
-  - honda_cub_50cc_2020
-  - honda_cub_50cc_2021
+  - honda_cub_2023
   - honda_cup_50_2025
   - honda_dream_1993
   - honda_dream_1994
   - honda_dream_1995
   - honda_dream_1996
-  - honda_dream_1998
+  - honda_dream_1999
   - honda_dream_2000
   - honda_dream_2001
-  - honda_dream_2002
   - honda_dream_2004
   - honda_dream_2005
-  - honda_dream_2009
   - honda_dream_2010
-  - honda_dream_2011
   - honda_dream_2012
+  - honda_dream_2013
   - honda_dream_2014
   - honda_dream_2015
   - honda_dream_2016
   - honda_dream_2017
   - honda_dream_2019
   - honda_dream_2020
+  - honda_dream_2021
+  - honda_dream_2022
   - honda_dream_2023
-  - honda_dream_2025
-  - honda_dream_2026
+  - honda_dream_2024
   - honda_dylan_2004
   - honda_dylan_2005
   - honda_dylan_2006
-  - honda_dylan_2009
   - honda_future_2000
   - honda_future_2001
-  - honda_future_2002
-  - honda_future_2005
+  - honda_future_2006
   - honda_future_2007
   - honda_future_2008
   - honda_future_2011
   - honda_future_2012
+  - honda_future_2015
   - honda_future_2016
-  - honda_future_2017
-  - honda_future_2018
-  - honda_future_2019
-  - honda_future_2020
-  - honda_future_2021
+  - honda_future_2022
   - honda_future_2023
   - honda_future_2024
   - honda_future_2025
-  - honda_future_2026
-  - honda_giorno_2011
   - honda_giorno_2013
   - honda_giorno_2024
   - honda_giorno_2026
   - honda_hr_v_2018
   - honda_hr_v_2019
-  - honda_hr_v_2020
   - honda_hr_v_2021
   - honda_hr_v_2023
+  - honda_hr_v_2024
   - honda_hr_v_2025
   - honda_hr_v_2026
   - honda_jazz_2018
   - honda_jazz_2019
-  - honda_lead_2007
   - honda_lead_2008
-  - honda_lead_2010
-  - honda_lead_2011
-  - honda_lead_2012
   - honda_lead_2013
   - honda_lead_2014
-  - honda_lead_2015
-  - honda_lead_2016
   - honda_lead_2017
   - honda_lead_2018
   - honda_lead_2019
   - honda_lead_2020
   - honda_lead_2022
-  - honda_lead_2023
-  - honda_lead_2025
   - honda_lead_2026
   - honda_msx_2014
-  - honda_msx_2015
   - honda_msx_2016
   - honda_msx_2017
   - honda_msx_2018
@@ -622,91 +517,74 @@ names:
   - honda_msx_2020
   - honda_msx_2021
   - honda_msx_2022
-  - honda_msx_2024
-  - honda_odyssey_2008
-  - honda_odyssey_2009
   - honda_odyssey_2016
-  - honda_pcx_125_2010
-  - honda_pcx_125_2011
-  - honda_pcx_125_2012
-  - honda_pcx_125_2013
-  - honda_pcx_125_2014
-  - honda_pcx_125_2015
-  - honda_pcx_125_2016
-  - honda_pcx_125_2017
-  - honda_pcx_125_2018
-  - honda_pcx_125_2019
-  - honda_pcx_125_2020
-  - honda_pcx_125_2021
-  - honda_pcx_125_2022
-  - honda_pcx_125_2023
-  - honda_pcx_125_2024
+  - honda_pcx_2010
+  - honda_pcx_2011
+  - honda_pcx_2013
+  - honda_pcx_2014
+  - honda_pcx_2016
+  - honda_pcx_2017
+  - honda_pcx_2019
+  - honda_pcx_2021
+  - honda_pcx_2023
+  - honda_pcx_2024
+  - honda_pcx_2025
+  - honda_pcx_2026
   - honda_ps_150i_2008
   - honda_ps_150i_2009
   - honda_rebel_300_2019
-  - honda_rebel_300_2020
-  - honda_rebel_300_2021
   - honda_rebel_300_2022
   - honda_rebel_300_2023
+  - honda_rebel_300_2025
   - honda_scoopy_2009
   - honda_scoopy_2016
-  - honda_scoopy_2018
   - honda_scoopy_2019
-  - honda_scoopy_2020
   - honda_scoopy_2021
   - honda_scoopy_2022
-  - honda_scoopy_2024
+  - honda_scoopy_2023
   - honda_scoopy_2026
-  - honda_sh_2004
-  - honda_sh_2005
-  - honda_sh_2007
-  - honda_sh_2008
-  - honda_sh_2009
-  - honda_sh_2010
-  - honda_sh_2011
-  - honda_sh_2012
-  - honda_sh_2013
-  - honda_sh_2014
-  - honda_sh_2015
-  - honda_sh_2016
-  - honda_sh_2017
-  - honda_sh_2018
-  - honda_sh_2019
-  - honda_sh_2020
-  - honda_sh_2021
-  - honda_sh_2023
-  - honda_sh_2025
-  - honda_sh_2026
+  - honda_scr_2008
+  - honda_sh_150i_2004
+  - honda_sh_150i_2005
+  - honda_sh_150i_2006
+  - honda_sh_150i_2009
+  - honda_sh_150i_2011
+  - honda_sh_150i_2013
+  - honda_sh_150i_2015
+  - honda_sh_150i_2017
+  - honda_sh_150i_2019
+  - honda_sh_150i_2020
+  - honda_sh_150i_2021
+  - honda_sh_150i_2022
+  - honda_sh_150i_2023
+  - honda_sh_150i_2024
+  - honda_sh_150i_2025
+  - honda_sh_150i_2026
   - honda_sh_mode_2014
   - honda_sh_mode_2015
-  - honda_sh_mode_2016
-  - honda_sh_mode_2017
   - honda_sh_mode_2018
   - honda_sh_mode_2020
   - honda_sh_mode_2021
-  - honda_sh_mode_2022
+  - honda_sh_mode_2023
   - honda_sh_mode_2024
-  - honda_sh_mode_2025
   - honda_sh_mode_2026
-  - honda_shadow_150_2020
-  - honda_sonic_2016
+  - honda_shadow_750_2009
+  - honda_shadow_750_2013
+  - honda_shadow_750_2021
+  - honda_sonic_2001
   - honda_sonic_2018
   - honda_sonic_2019
   - honda_sonic_2020
-  - honda_sonic_2021
   - honda_sonic_2022
-  - honda_spacy_125_1998
   - honda_spacy_125_2003
-  - honda_spacy_125_2005
+  - honda_spacy_125_2007
+  - honda_spacy_125_2024
   - honda_super_cub_50cc_2013
   - honda_super_cub_c125_1996
-  - honda_super_cub_c125_2018
-  - honda_super_cub_c125_2019
+  - honda_super_cub_c125_2022
   - honda_super_cub_c125_2024
   - honda_super_cub_c125_2025
   - honda_super_cub_c125_2026
-  - honda_vario_150_2016
-  - honda_vario_150_2017
   - honda_vario_150_2018
   - honda_vario_150_2019
   - honda_vario_150_2020
@@ -717,92 +595,53 @@ names:
   - honda_vario_150_2025
   - honda_vario_150_2026
   - honda_vision_2011
-  - honda_vision_2012
   - honda_vision_2013
   - honda_vision_2014
-  - honda_vision_2015
   - honda_vision_2017
-  - honda_vision_2018
   - honda_vision_2019
   - honda_vision_2020
-  - honda_vision_2022
   - honda_vision_2023
   - honda_vision_2024
-  - honda_vision_2025
   - honda_vision_2026
   - honda_wave_1998
   - honda_wave_2000
-  - honda_wave_2001
-  - honda_wave_2002
+  - honda_wave_2003
   - honda_wave_2004
   - honda_wave_2005
-  - honda_wave_2007
+  - honda_wave_2006
   - honda_wave_2008
-  - honda_wave_2009
   - honda_wave_2010
-  - honda_wave_2012
-  - honda_wave_2013
+  - honda_wave_2011
   - honda_wave_2014
   - honda_wave_2015
   - honda_wave_2016
-  - honda_wave_2017
-  - honda_wave_2018
-  - honda_wave_2019
+  - honda_wave_2020
   - honda_wave_2021
-  - honda_wave_2022
   - honda_wave_2023
+  - honda_wave_2024
   - honda_wave_2025
   - honda_wave_2026
-  - honda_win_100_la_1995
-  - honda_win_100_la_2020
   - honda_winner_2018
   - honda_winner_2020
-  - honda_winner_2021
-  - honda_winner_2022
   - honda_winner_2023
   - honda_winner_2024
   - honda_winner_2025
-  - honda_winner_v1_2018
+  - honda_winner_v1_2017
+  - honda_winner_v1_2020
+  - honda_winner_v1_2021
+  - honda_winner_v1_2022
   - honda_winner_v1_2026
-  - honda_zoomer_1993
-  - honda_zoomer_2003
-  - honda_zoomer_2004
-  - honda_zoomer_2006
-  - honda_zoomer_2007
-  - honda_zoomer_2008
-  - honda_zoomer_2009
-  - honda_zoomer_2011
-  - honda_zoomer_2012
-  - honda_zoomer_2013
-  - honda_zoomer_2014
-  - honda_zoomer_2015
-  - honda_zoomer_2016
-  - honda_zoomer_2017
-  - honda_zoomer_2018
-  - honda_zoomer_2019
-  - honda_zoomer_2020
-  - honda_zoomer_2021
-  - honda_zoomer_2022
-  - honda_zoomer_2023
-  - honda_zoomer_2024
-  - hyundai_110s_2018
-  - hyundai_110s_2022
-  - hyundai_accent_2011
   - hyundai_accent_2012
   - hyundai_accent_2013
   - hyundai_accent_2014
-  - hyundai_accent_2015
+  - hyundai_accent_2016
   - hyundai_accent_2017
-  - hyundai_accent_2018
   - hyundai_accent_2019
-  - hyundai_accent_2020
   - hyundai_accent_2021
   - hyundai_accent_2023
   - hyundai_accent_2024
   - hyundai_accent_2025
   - hyundai_accent_2026
-  - hyundai_avante_2011
-  - hyundai_avante_2012
   - hyundai_avante_2013
   - hyundai_avante_2014
   - hyundai_county_2019
@@ -811,40 +650,34 @@ names:
   - hyundai_creta_2023
   - hyundai_creta_2024
   - hyundai_creta_2025
+  - hyundai_creta_2026
   - hyundai_custin_2023
   - hyundai_custin_2024
   - hyundai_custin_2025
-  - hyundai_custin_2026
+  - hyundai_elantra_2010
   - hyundai_elantra_2011
   - hyundai_elantra_2014
   - hyundai_elantra_2016
-  - hyundai_elantra_2017
-  - hyundai_elantra_2018
-  - hyundai_elantra_2019
   - hyundai_elantra_2020
-  - hyundai_elantra_2021
   - hyundai_elantra_2022
-  - hyundai_elantra_2023
   - hyundai_elantra_2024
-  - hyundai_elantra_2025
-  - hyundai_genesis_2009
   - hyundai_genesis_2010
   - hyundai_genesis_2012
-  - hyundai_genesis_2016
+  - hyundai_getz_2008
   - hyundai_getz_2009
-  - hyundai_getz_2010
   - hyundai_getz_2016
   - hyundai_grand_i10_2008
   - hyundai_grand_i10_2013
   - hyundai_grand_i10_2014
-  - hyundai_grand_i10_2015
-  - hyundai_grand_i10_2016
+  - hyundai_grand_i10_2017
   - hyundai_grand_i10_2018
-  - hyundai_grand_i10_2019
   - hyundai_grand_i10_2020
   - hyundai_grand_i10_2021
   - hyundai_grand_i10_2023
+  - hyundai_grand_i10_2024
   - hyundai_grand_i10_2025
+  - hyundai_grand_starex_2005
+  - hyundai_grand_starex_2008
   - hyundai_grand_starex_2016
   - hyundai_grand_starex_2024
   - hyundai_h100_2005
@@ -853,361 +686,295 @@ names:
   - hyundai_h100_2008
   - hyundai_h100_2009
   - hyundai_h100_2010
-  - hyundai_h100_2015
   - hyundai_h100_2016
+  - hyundai_h150_2018
+  - hyundai_h150_2020
   - hyundai_h150_2021
   - hyundai_h150_2024
   - hyundai_h150_2025
   - hyundai_h150_2026
   - hyundai_hd65_2010
-  - hyundai_hd65_2017
   - hyundai_hd72_2009
-  - hyundai_hd72_2011
-  - hyundai_hd72_2012
-  - hyundai_hd72_2014
-  - hyundai_hd72_2015
-  - hyundai_i20_2011
+  - hyundai_hd_65_2008
+  - hyundai_i20_2012
   - hyundai_i20_2013
   - hyundai_i20_2016
-  - hyundai_i20_2021
-  - hyundai_i30_2008
   - hyundai_i30_2009
-  - hyundai_kona_2019
   - hyundai_kona_2021
   - hyundai_libero_2002
-  - hyundai_mighty_2015
+  - hyundai_libero_2004
   - hyundai_mighty_2017
   - hyundai_mighty_2021
   - hyundai_mighty_2022
   - hyundai_mighty_2023
+  - hyundai_n250_2018
   - hyundai_n250_2021
   - hyundai_n250sl_2019
   - hyundai_n250sl_2021
-  - hyundai_n250sl_2022
+  - hyundai_n250sl_2024
   - hyundai_n250sl_2026
-  - hyundai_palisade_2024
+  - hyundai_new_porter_2023
   - hyundai_palisade_2025
+  - hyundai_porter_150_2018
   - hyundai_porter_150_2020
-  - hyundai_porter_2003
-  - hyundai_porter_2005
-  - hyundai_porter_2007
+  - hyundai_porter_2004
   - hyundai_porter_2008
   - hyundai_porter_2009
   - hyundai_porter_2024
-  - hyundai_porter_h150_2010
-  - hyundai_porter_h150_2020
   - hyundai_porter_ii_2010
   - hyundai_porter_ii_2011
   - hyundai_porter_ii_2014
   - hyundai_santa_fe_2004
-  - hyundai_santa_fe_2005
   - hyundai_santa_fe_2006
+  - hyundai_santa_fe_2008
   - hyundai_santa_fe_2009
-  - hyundai_santa_fe_2011
+  - hyundai_santa_fe_2014
   - hyundai_santa_fe_2015
+  - hyundai_santa_fe_2016
   - hyundai_santa_fe_2017
   - hyundai_santa_fe_2018
   - hyundai_santa_fe_2019
   - hyundai_santa_fe_2021
   - hyundai_santa_fe_2022
   - hyundai_santa_fe_2023
-  - hyundai_santa_fe_2024
-  - hyundai_santa_fe_2026
+  - hyundai_santa_fe_2025
   - hyundai_solati_2018
   - hyundai_solati_2019
   - hyundai_solati_2020
-  - hyundai_solati_2024
   - hyundai_solati_2025
   - hyundai_solati_2026
+  - hyundai_sonata_2009
   - hyundai_sonata_2010
-  - hyundai_sonata_2011
-  - hyundai_sonata_2012
   - hyundai_sonata_2014
   - hyundai_starex_2004
-  - hyundai_starex_2006
-  - hyundai_starex_2007
   - hyundai_starex_2009
   - hyundai_starex_2010
   - hyundai_starex_2013
+  - hyundai_starex_2014
+  - hyundai_starex_2015
   - hyundai_stargazer_2022
+  - hyundai_stargazer_2024
   - hyundai_stargazer_2025
-  - hyundai_tucson_2011
+  - hyundai_tucson_2009
   - hyundai_tucson_2013
   - hyundai_tucson_2015
-  - hyundai_tucson_2016
   - hyundai_tucson_2017
-  - hyundai_tucson_2018
   - hyundai_tucson_2019
   - hyundai_tucson_2020
-  - hyundai_tucson_2021
   - hyundai_tucson_2022
   - hyundai_tucson_2023
   - hyundai_tucson_2024
   - hyundai_tucson_2025
-  - hyundai_tucson_2026
   - hyundai_veloster_2011
   - hyundai_venue_2024
-  - hyundai_venue_2025
-  - hyundai_venue_2026
-  - hyundai_verna_2008
   - hyundai_verna_2009
+  - infiniti_qx60_2015
+  - isuzu_1t7_2014
+  - isuzu_1t9_2014
   - isuzu_1t9_2015
-  - isuzu_dmax_2005
   - isuzu_dmax_2008
-  - isuzu_dmax_2011
+  - isuzu_dmax_2014
   - isuzu_dmax_2015
-  - isuzu_dmax_2016
   - isuzu_dmax_2017
   - isuzu_dmax_2018
-  - isuzu_dmax_2022
-  - isuzu_dmax_2023
   - isuzu_dmax_2025
   - isuzu_dmax_2026
   - isuzu_frr_2015
   - isuzu_frr_2023
   - isuzu_frr_650_2025
   - isuzu_fvm_2015
-  - isuzu_fvm_2023
-  - isuzu_hi_lander_2003
+  - isuzu_fvr_900_2022
   - isuzu_hi_lander_2004
   - isuzu_hi_lander_2005
   - isuzu_hi_lander_2006
   - isuzu_hi_lander_2007
-  - isuzu_hi_lander_2008
-  - isuzu_hi_lander_2011
-  - isuzu_mu_x_2016
-  - isuzu_mu_x_2017
   - isuzu_mu_x_2019
-  - isuzu_mu_x_2020
   - isuzu_mu_x_2021
   - isuzu_mu_x_2024
   - isuzu_mu_x_2025
+  - isuzu_nmr_2009
+  - isuzu_nmr_2014
   - isuzu_nmr_2016
   - isuzu_npr400_2021
-  - isuzu_npr400_2024
-  - isuzu_npr_2007
   - isuzu_npr_2009
-  - isuzu_npr_2012
-  - isuzu_npr_2014
   - isuzu_npr_2017
   - isuzu_npr_2019
-  - isuzu_npr_2022
+  - isuzu_nqr550_2022
   - isuzu_nqr550_2026
   - isuzu_nqr_2002
-  - isuzu_nqr_2010
-  - isuzu_nqr_2013
   - isuzu_nqr_2015
   - isuzu_nqr_2016
   - isuzu_nqr_2022
-  - isuzu_nqr_2024
+  - isuzu_qkr210_2023
+  - isuzu_qkr230_2020
   - isuzu_qkr230_2024
   - isuzu_qkr270_2022
   - isuzu_qkr270_2024
   - isuzu_qkr_210_2024
   - isuzu_qkr_230_2025
+  - isuzu_qkr_270_2023
+  - isuzu_qkr_270_2024
   - isuzu_qkr_91ps_2016
+  - isuzu_sx_2003
   - isuzu_sx_2007
   - isuzu_sx_2008
-  - isuzu_sx_2016
   - isuzu_trooper_1997
-  - isuzu_trooper_2000
   - isuzu_trooper_2001
-  - isuzu_vinh_phat_2021
   - jac_n900_2023
   - jac_n900_2024
-  - jac_n900_2026
-  - jaguar_xf_2013
   - jaguar_xf_2014
   - jaguar_xf_2017
-  - jaguar_xj_series_2011
-  - jaguar_xj_series_2014
   - jeep_a2_1980
+  - kawasaki_boss_174_sx_2010
   - kawasaki_ninja_300_abs_2016
   - kawasaki_ninja_300_abs_2017
+  - kawasaki_ninja_300_abs_2018
+  - kawasaki_ninja_300_abs_2021
   - kawasaki_ninja_300_abs_2023
+  - kawasaki_ninja_300_abs_2026
+  - kawasaki_vulcan_900_custom_2016
   - kawasaki_vulcan_900_custom_2019
-  - kawasaki_w175se_2018
-  - kawasaki_w175se_2019
-  - kawasaki_w175se_2020
-  - kawasaki_w175se_2021
+  - kawasaki_w175_2019
   - kawasaki_z1000_2012
+  - kawasaki_z1000_2015
   - kawasaki_z1000_2016
   - kawasaki_z1000_2018
   - kawasaki_z125_pro_may_2016
   - kawasaki_z125_pro_may_2019
-  - kawasaki_z125_pro_may_2020
   - kawasaki_z300_2017
   - kawasaki_z300_2018
-  - kawasaki_z300_2021
   - kawasaki_z650_2018
   - kawasaki_z650_2019
   - kawasaki_z650_2022
   - kawasaki_z650_2023
-  - kawasaki_z800_2015
   - kawasaki_z800_2017
   - kawasaki_z800_2018
-  - kia_bongo_2004
   - kia_bongo_2006
-  - kia_bongo_2011
   - kia_carens_2009
   - kia_carens_2010
-  - kia_carens_2011
   - kia_carens_2013
-  - kia_carens_2014
-  - kia_carens_2015
-  - kia_carens_2022
   - kia_carens_2023
   - kia_carens_2024
   - kia_carens_2025
   - kia_carens_2026
   - kia_carnival_2007
-  - kia_carnival_2008
-  - kia_carnival_2009
-  - kia_carnival_2010
   - kia_carnival_2021
-  - kia_carnival_2023
+  - kia_carnival_2022
   - kia_carnival_2024
   - kia_carnival_2025
+  - kia_carnival_2026
   - kia_cd5_2000
   - kia_cd5_2001
   - kia_cd5_2002
   - kia_cd5_2003
-  - kia_cd5_2024
   - kia_cerato_2008
   - kia_cerato_2009
-  - kia_cerato_2010
   - kia_cerato_2011
   - kia_cerato_2012
   - kia_cerato_2016
   - kia_cerato_2017
-  - kia_cerato_2018
   - kia_cerato_2019
-  - kia_cerato_2020
-  - kia_cerato_koup_2010
+  - kia_cerato_2021
   - kia_cerato_koup_2014
-  - kia_forte_2010
-  - kia_forte_2011
-  - kia_forte_2013
-  - kia_forte_2022
+  - kia_forte_2012
   - kia_frontier_2002
-  - kia_frontier_2003
-  - kia_frontier_2014
+  - kia_frontier_2010
   - kia_frontier_2015
-  - kia_frontier_2017
+  - kia_frontier_2016
   - kia_frontier_2025
-  - kia_frontier_k165_2015
-  - kia_frontier_k165_2017
-  - kia_k140_sx_2015
+  - kia_k140_2016
+  - kia_k140_2017
+  - kia_k140_sx_2014
   - kia_k140_sx_2018
   - kia_k165_2015
   - kia_k165_2016
+  - kia_k165_2017
   - kia_k190_2016
   - kia_k190_2017
   - kia_k200_2018
   - kia_k200_2019
-  - kia_k200_2020
   - kia_k200_2021
   - kia_k200_2022
+  - kia_k200_2024
   - kia_k200_2025
-  - kia_k200_2026
-  - kia_k200_tap_lai_2026
   - kia_k250_2018
-  - kia_k250_2019
   - kia_k250_2020
-  - kia_k250_2021
   - kia_k250_2022
+  - kia_k250_2024
   - kia_k250_2026
-  - kia_k250l_2022
+  - kia_k250l_2023
   - kia_k2700_2003
-  - kia_k2700_2007
-  - kia_k2700_2009
+  - kia_k2700_2005
+  - kia_k2700_2008
   - kia_k2700_2010
   - kia_k2700_2011
-  - kia_k2700_2012
   - kia_k2700_2013
+  - kia_k2700_mau_2004
   - kia_k3000_2008
   - kia_k3000_2010
   - kia_k3000_2011
   - kia_k3000_2012
   - kia_k3000_2013
-  - kia_k3000_2014
+  - kia_k3000s_2007
   - kia_k3000s_2010
   - kia_k3000s_2012
   - kia_k3000s_2013
   - kia_k3_2016
-  - kia_k3_2021
   - kia_k3_2022
   - kia_k3_2023
-  - kia_k3_2024
   - kia_k3_2025
   - kia_k3_2026
+  - kia_k5_2022
+  - kia_k5_2024
   - kia_k5_2026
-  - kia_morning_2004
   - kia_morning_2005
   - kia_morning_2006
   - kia_morning_2007
   - kia_morning_2010
   - kia_morning_2011
-  - kia_morning_2015
-  - kia_morning_2017
-  - kia_morning_2018
+  - kia_morning_2014
   - kia_morning_2019
   - kia_morning_2020
-  - kia_morning_2021
-  - kia_morning_2022
-  - kia_morning_2024
-  - kia_optima_2012
   - kia_optima_2015
   - kia_picanto_2007
-  - kia_picanto_2012
   - kia_picanto_2022
-  - kia_pride_1996
   - kia_pride_2001
   - kia_pride_2003
+  - kia_rio_2013
   - kia_rio_2014
   - kia_rio_2015
   - kia_rio_2016
   - kia_rondo_2015
   - kia_rondo_2016
-  - kia_rondo_2017
   - kia_rondo_2018
   - kia_rondo_2019
-  - kia_rondo_2020
   - kia_rondo_2022
   - kia_sedona_2016
   - kia_sedona_2017
   - kia_sedona_2018
   - kia_sedona_2019
-  - kia_sedona_2020
   - kia_sedona_2021
   - kia_seltos_2020
+  - kia_seltos_2021
+  - kia_seltos_2022
   - kia_seltos_2023
   - kia_seltos_2024
-  - kia_seltos_2025
   - kia_seltos_2026
   - kia_soluto_2019
   - kia_soluto_2020
   - kia_soluto_2021
-  - kia_soluto_2022
-  - kia_soluto_2024
-  - kia_sonet_2022
   - kia_sonet_2023
   - kia_sonet_2024
   - kia_sonet_2025
   - kia_sonet_2026
   - kia_sorento_2007
-  - kia_sorento_2010
-  - kia_sorento_2012
   - kia_sorento_2013
   - kia_sorento_2014
   - kia_sorento_2015
-  - kia_sorento_2016
   - kia_sorento_2017
   - kia_sorento_2018
   - kia_sorento_2021
-  - kia_sorento_2022
   - kia_sorento_2023
-  - kia_sorento_2025
   - kia_sorento_2026
   - kia_spectra_2003
   - kia_spectra_2004
@@ -1215,26 +982,19 @@ names:
   - kia_sportage_2005
   - kia_sportage_2011
   - kia_sportage_2014
-  - kia_sportage_2015
   - kia_sportage_2022
-  - kia_sportage_2023
   - kia_sportage_2024
   - kia_sportage_2025
   - kia_sportage_2026
   - ktm_duke_125_abs_2014
   - ktm_duke_125_abs_2018
   - ktm_duke_125_abs_2021
-  - ktm_duke_200_2013
   - ktm_duke_200_2014
   - ktm_duke_200_2018
-  - ktm_duke_200_2019
-  - kymco_50cc_2020
-  - kymco_50cc_2023
-  - kymco_candy_50cc_2013
+  - kymco_50cc_2022
+  - kymco_candy_hermosa_50cc_2020
   - kymco_visar_2019
-  - kymco_visar_2022
   - kymco_visar_2023
-  - kymco_visar_2024
   - lada_granta_2024
   - lada_niva_2024
   - lambretta_x125_ho_tro_2025
@@ -1242,7 +1002,6 @@ names:
   - landrover_freelander_2008
   - landrover_freelander_2012
   - landrover_range_rover_2010
-  - landrover_range_rover_2012
   - landrover_range_rover_2013
   - landrover_range_rover_2014
   - landrover_range_rover_2015
@@ -1256,76 +1015,64 @@ names:
   - landrover_range_rover_sport_2014
   - landrover_range_rover_sport_2015
   - landrover_range_rover_sport_2016
-  - lexus_es_2015
   - lexus_es_2018
-  - lexus_es_2019
   - lexus_es_2021
   - lexus_es_2022
-  - lexus_es_2023
   - lexus_gs_2006
-  - lexus_gs_2007
   - lexus_gs_2008
+  - lexus_gs_2022
   - lexus_gx_2005
   - lexus_gx_2006
-  - lexus_gx_2007
   - lexus_gx_2008
+  - lexus_gx_2009
   - lexus_gx_2011
   - lexus_gx_2013
-  - lexus_gx_2016
   - lexus_ls_2006
-  - lexus_ls_2007
   - lexus_ls_2023
   - lexus_lx570_2009
   - lexus_lx570_2014
-  - lexus_lx_2018
+  - lexus_lx_2008
+  - lexus_lx_2015
   - lexus_lx_2024
-  - lexus_lx_600_2023
   - lexus_lx_600_2026
   - lexus_nx_2016
   - lexus_nx_2017
-  - lexus_nx_2019
   - lexus_nx_2021
   - lexus_rx_2003
   - lexus_rx_2006
-  - lexus_rx_2008
   - lexus_rx_2009
   - lexus_rx_2010
   - lexus_rx_2015
   - lexus_rx_2017
   - lexus_rx_2020
-  - lexus_rx_2021
   - lexus_rx_2022
-  - lexus_rx_2023
   - lexus_rx_2024
-  - luxgen_5_2012
   - luxgen_5_2014
   - mazda_2_2012
   - mazda_2_2013
   - mazda_2_2014
   - mazda_2_2015
+  - mazda_2_2016
   - mazda_2_2017
   - mazda_2_2018
   - mazda_2_2020
   - mazda_2_2021
   - mazda_2_2022
   - mazda_2_2023
-  - mazda_2_2024
   - mazda_2_2025
   - mazda_2_2026
   - mazda_323_1995
   - mazda_323_1997
-  - mazda_323_2003
   - mazda_3_2004
   - mazda_3_2009
   - mazda_3_2010
-  - mazda_3_2011
   - mazda_3_2012
   - mazda_3_2014
-  - mazda_3_2015
-  - mazda_3_2016
+  - mazda_3_2018
   - mazda_3_2019
   - mazda_3_2020
   - mazda_3_2021
+  - mazda_3_2022
   - mazda_3_2023
   - mazda_3_2024
   - mazda_3_2025
@@ -1334,11 +1081,9 @@ names:
   - mazda_626_1992
   - mazda_626_1993
   - mazda_626_1997
-  - mazda_626_1999
   - mazda_626_2000
   - mazda_626_2001
   - mazda_6_2004
-  - mazda_6_2005
   - mazda_6_2014
   - mazda_6_2015
   - mazda_6_2016
@@ -1359,26 +1104,25 @@ names:
   - mazda_bt_50_2021
   - mazda_bt_50_2023
   - mazda_cx_30_2022
+  - mazda_cx_30_2024
+  - mazda_cx_30_2025
   - mazda_cx_3_2021
   - mazda_cx_3_2022
   - mazda_cx_3_2023
   - mazda_cx_3_2024
   - mazda_cx_3_2025
   - mazda_cx_5_2012
-  - mazda_cx_5_2013
   - mazda_cx_5_2014
   - mazda_cx_5_2015
   - mazda_cx_5_2016
-  - mazda_cx_5_2017
   - mazda_cx_5_2019
   - mazda_cx_5_2021
   - mazda_cx_5_2022
   - mazda_cx_5_2023
-  - mazda_cx_5_2024
   - mazda_cx_5_2025
+  - mazda_cx_5_2026
   - mazda_cx_8_2019
   - mazda_cx_8_2020
-  - mazda_cx_8_2021
   - mazda_cx_8_2022
   - mazda_cx_8_2023
   - mazda_cx_8_2024
@@ -1386,108 +1130,81 @@ names:
   - mazda_cx_8_2026
   - mazda_premacy_2002
   - mazda_premacy_2003
-  - mercedes_benz_amg_2006
   - mercedes_benz_amg_2019
+  - mercedes_benz_c_class_2001
   - mercedes_benz_c_class_2007
   - mercedes_benz_c_class_2008
   - mercedes_benz_c_class_2009
-  - mercedes_benz_c_class_2010
   - mercedes_benz_c_class_2011
   - mercedes_benz_c_class_2014
-  - mercedes_benz_c_class_2015
-  - mercedes_benz_c_class_2016
   - mercedes_benz_c_class_2017
   - mercedes_benz_c_class_2018
-  - mercedes_benz_c_class_2019
-  - mercedes_benz_c_class_2020
   - mercedes_benz_c_class_2021
   - mercedes_benz_c_class_2022
   - mercedes_benz_c_class_2023
+  - mercedes_benz_c_class_2025
   - mercedes_benz_cla_class_2014
-  - mercedes_benz_cla_class_2015
   - mercedes_benz_cla_class_2016
   - mercedes_benz_cla_class_2017
   - mercedes_benz_cla_class_2018
   - mercedes_benz_cls_class_2010
+  - mercedes_benz_e_class_2004
   - mercedes_benz_e_class_2007
   - mercedes_benz_e_class_2010
   - mercedes_benz_e_class_2011
-  - mercedes_benz_e_class_2013
   - mercedes_benz_e_class_2015
   - mercedes_benz_e_class_2016
   - mercedes_benz_e_class_2017
   - mercedes_benz_e_class_2018
   - mercedes_benz_e_class_2019
   - mercedes_benz_e_class_2020
-  - mercedes_benz_e_class_2021
-  - mercedes_benz_e_class_2022
-  - mercedes_benz_e_class_2023
   - mercedes_benz_eqs_2024
   - mercedes_benz_gl_class_2010
   - mercedes_benz_gl_class_2011
-  - mercedes_benz_gl_class_2014
   - mercedes_benz_gl_class_2015
   - mercedes_benz_gla_class_2014
-  - mercedes_benz_gla_class_2015
   - mercedes_benz_gla_class_2016
   - mercedes_benz_gla_class_2017
   - mercedes_benz_gla_class_2018
-  - mercedes_benz_gla_class_2019
   - mercedes_benz_glb_2020
   - mercedes_benz_glb_2022
-  - mercedes_benz_glb_2023
   - mercedes_benz_glc_2016
-  - mercedes_benz_glc_2017
   - mercedes_benz_glc_2018
   - mercedes_benz_glc_2019
-  - mercedes_benz_glc_2021
-  - mercedes_benz_glc_2022
+  - mercedes_benz_glc_2020
   - mercedes_benz_glc_2023
   - mercedes_benz_glc_2024
-  - mercedes_benz_glc_2025
-  - mercedes_benz_glc_class_2020
-  - mercedes_benz_gle_class_2018
+  - mercedes_benz_glc_class_2018
+  - mercedes_benz_glc_class_2022
+  - mercedes_benz_gle_class_2022
   - mercedes_benz_glk_class_2009
-  - mercedes_benz_glk_class_2011
-  - mercedes_benz_glk_class_2014
-  - mercedes_benz_gls_2008
+  - mercedes_benz_glk_class_2010
+  - mercedes_benz_glk_class_2012
+  - mercedes_benz_glk_class_2013
   - mercedes_benz_gls_2022
-  - mercedes_benz_gls_2023
-  - mercedes_benz_gls_class_2020
-  - mercedes_benz_gls_class_2022
   - mercedes_benz_gls_class_2025
-  - mercedes_benz_maybach_2018
   - mercedes_benz_maybach_2022
-  - mercedes_benz_mb_2003
-  - mercedes_benz_mb_2019
   - mercedes_benz_s_class_1995
-  - mercedes_benz_s_class_1997
   - mercedes_benz_s_class_2007
+  - mercedes_benz_s_class_2009
   - mercedes_benz_s_class_2015
   - mercedes_benz_s_class_2016
   - mercedes_benz_s_class_2017
-  - mercedes_benz_s_class_2018
-  - mercedes_benz_s_class_2019
   - mercedes_benz_s_class_2020
   - mercedes_benz_s_class_2022
-  - mercedes_benz_s_class_2023
-  - mercedes_benz_sprinter_2005
   - mercedes_benz_sprinter_2006
   - mercedes_benz_sprinter_2007
   - mercedes_benz_sprinter_2008
-  - mercedes_benz_sprinter_2009
   - mercedes_benz_sprinter_2010
   - mercedes_benz_sprinter_2011
   - mercedes_benz_sprinter_2012
   - mercedes_benz_sprinter_313_2006
-  - mercedes_benz_sprinter_313_2008
   - mercedes_benz_sprinter_313_2012
   - mercedes_benz_v_class_2016
   - mercedes_benz_v_class_2021
   - mercedes_benz_v_class_2023
   - mg_g50_2025
   - mg_g50_2026
-  - mg_hs_2020
   - mg_hs_2021
   - mg_hs_2023
   - mg_hs_2024
@@ -1500,35 +1217,29 @@ names:
   - mg_mg5_2024
   - mg_mg5_2025
   - mg_mg7_2024
+  - mg_mg7_2025
   - mg_mgzs_2012
   - mg_mgzs_2020
-  - mg_mgzs_2021
   - mg_mgzs_2022
   - mg_mgzs_2023
-  - mg_mgzs_2024
   - mg_mgzs_2025
-  - mg_rx5_2023
   - mg_rx5_2024
   - mini_cooper_s_2016
   - mini_cooper_s_2022
   - mini_cooper_s_2025
   - mitsubishi_attrage_2015
-  - mitsubishi_attrage_2016
-  - mitsubishi_attrage_2018
   - mitsubishi_attrage_2019
   - mitsubishi_attrage_2020
   - mitsubishi_attrage_2021
   - mitsubishi_attrage_2022
-  - mitsubishi_attrage_2023
   - mitsubishi_attrage_2024
   - mitsubishi_attrage_2025
   - mitsubishi_attrage_2026
   - mitsubishi_destinator_2025
-  - mitsubishi_destinator_2026
   - mitsubishi_grandis_2005
-  - mitsubishi_grandis_2006
   - mitsubishi_grandis_2008
   - mitsubishi_jolie_2000
+  - mitsubishi_jolie_2003
   - mitsubishi_jolie_2004
   - mitsubishi_jolie_2005
   - mitsubishi_jolie_2006
@@ -1537,103 +1248,71 @@ names:
   - mitsubishi_lancer_2004
   - mitsubishi_lancer_2005
   - mitsubishi_mirage_2014
-  - mitsubishi_mirage_2015
+  - mitsubishi_mirage_2017
   - mitsubishi_mirage_2019
   - mitsubishi_mirage_2021
-  - mitsubishi_mirage_2025
   - mitsubishi_outlander_2016
   - mitsubishi_outlander_2017
-  - mitsubishi_outlander_2018
+  - mitsubishi_outlander_2019
+  - mitsubishi_outlander_2020
   - mitsubishi_outlander_2021
   - mitsubishi_outlander_2022
   - mitsubishi_outlander_2023
   - mitsubishi_outlander_sport_2016
-  - mitsubishi_pajero_1995
   - mitsubishi_pajero_1996
-  - mitsubishi_pajero_1999
   - mitsubishi_pajero_2000
   - mitsubishi_pajero_2001
   - mitsubishi_pajero_2002
   - mitsubishi_pajero_2003
   - mitsubishi_pajero_2004
-  - mitsubishi_pajero_2006
   - mitsubishi_pajero_2007
-  - mitsubishi_pajero_2010
   - mitsubishi_pajero_2011
   - mitsubishi_pajero_2018
   - mitsubishi_pajero_sport_2006
-  - mitsubishi_pajero_sport_2012
-  - mitsubishi_pajero_sport_2014
+  - mitsubishi_pajero_sport_2011
   - mitsubishi_pajero_sport_2016
-  - mitsubishi_pajero_sport_2017
-  - mitsubishi_pajero_sport_2019
   - mitsubishi_pajero_sport_2020
-  - mitsubishi_pajero_sport_2021
-  - mitsubishi_pajero_sport_2022
-  - mitsubishi_pajero_sport_2023
-  - mitsubishi_triton_2009
   - mitsubishi_triton_2011
-  - mitsubishi_triton_2019
-  - mitsubishi_triton_2020
+  - mitsubishi_triton_2016
+  - mitsubishi_triton_2017
   - mitsubishi_triton_2022
-  - mitsubishi_triton_2023
-  - mitsubishi_triton_2024
-  - mitsubishi_triton_2025
-  - mitsubishi_triton_2026
-  - mitsubishi_xforce_2024
-  - mitsubishi_xforce_2025
   - mitsubishi_xforce_2026
   - mitsubishi_xpander_2018
+  - mitsubishi_xpander_2019
   - mitsubishi_xpander_2020
-  - mitsubishi_xpander_2021
   - mitsubishi_xpander_2022
-  - mitsubishi_xpander_2023
   - mitsubishi_xpander_2025
-  - mitsubishi_xpander_2026
   - mitsubishi_xpander_cross_2020
+  - mitsubishi_xpander_cross_2021
   - mitsubishi_xpander_cross_2023
-  - mitsubishi_xpander_cross_2024
   - mitsubishi_xpander_cross_2025
   - mitsubishi_zinger_2008
-  - mitsubishi_zinger_2009
-  - nissan_almera_2022
   - nissan_almera_2024
-  - nissan_grand_livina_2010
   - nissan_grand_livina_2012
-  - nissan_juke_2014
   - nissan_juke_2015
+  - nissan_kicks_2022
   - nissan_kicks_2023
   - nissan_livina_2010
-  - nissan_livina_2011
   - nissan_maxima_1991
-  - nissan_maxima_2007
   - nissan_navara_2011
   - nissan_navara_2012
   - nissan_navara_2013
-  - nissan_navara_2016
+  - nissan_navara_2015
   - nissan_navara_2017
   - nissan_navara_2018
-  - nissan_navara_2019
   - nissan_navara_2020
   - nissan_navara_2021
   - nissan_navara_2022
-  - nissan_navara_2023
   - nissan_navara_2024
-  - nissan_rogue_2010
-  - nissan_sunny_2013
   - nissan_sunny_2014
-  - nissan_sunny_2015
-  - nissan_sunny_2016
   - nissan_sunny_2017
-  - nissan_sunny_2018
   - nissan_sunny_2019
-  - nissan_teana_2008
-  - nissan_teana_2013
+  - nissan_teana_2010
   - nissan_terra_2018
+  - nissan_terra_2019
   - nissan_tiida_2007
   - nissan_tiida_2008
   - nissan_x_trail_2013
-  - nissan_x_trail_2016
   - nissan_x_trail_2017
   - nissan_x_trail_2018
   - osakar_nispa_2022
@@ -1645,126 +1324,128 @@ names:
   - peugeot_2008_2015
   - peugeot_2008_2021
   - peugeot_2008_2022
-  - peugeot_2008_2023
-  - peugeot_2008_2025
+  - peugeot_208_2013
   - peugeot_3008_2017
   - peugeot_3008_2018
   - peugeot_3008_2019
+  - peugeot_3008_2020
   - peugeot_3008_2021
+  - peugeot_3008_2022
   - peugeot_3008_2023
+  - peugeot_3008_2024
+  - peugeot_3008_2025
   - peugeot_408_2014
   - peugeot_408_2016
   - peugeot_408_2023
+  - peugeot_408_2024
   - peugeot_408_2025
+  - peugeot_5008_2018
   - peugeot_5008_2019
+  - peugeot_5008_2021
   - peugeot_5008_2022
   - peugeot_5008_2023
   - peugeot_5008_2026
   - peugeot_traveller_2019
-  - piaggio_fly_125_2009
-  - piaggio_fly_125_2012
-  - piaggio_fly_125_2013
-  - piaggio_fly_125_2023
+  - peugeot_traveller_2023
+  - piaggio_fly_nhap_khau_2012
+  - piaggio_fly_nhap_khau_2023
   - piaggio_liberty_2011
   - piaggio_liberty_2013
   - piaggio_liberty_2014
+  - piaggio_liberty_2015
   - piaggio_liberty_2016
   - piaggio_liberty_2017
   - piaggio_liberty_2018
-  - piaggio_liberty_2021
+  - piaggio_liberty_2020
+  - piaggio_liberty_2022
   - piaggio_liberty_2023
-  - piaggio_liberty_2024
   - piaggio_liberty_2025
-  - piaggio_liberty_2026
   - piaggio_medley_2016
   - piaggio_medley_2017
   - piaggio_medley_2018
   - piaggio_medley_2019
-  - piaggio_medley_2020
   - piaggio_medley_2021
   - piaggio_medley_2023
-  - piaggio_medley_2025
-  - piaggio_vespa_1980
   - piaggio_vespa_1988
+  - piaggio_vespa_1991
+  - piaggio_vespa_1994
   - piaggio_vespa_2007
   - piaggio_vespa_2008
+  - piaggio_vespa_2009
   - piaggio_vespa_2010
+  - piaggio_vespa_2011
   - piaggio_vespa_2012
   - piaggio_vespa_2013
-  - piaggio_vespa_2014
   - piaggio_vespa_2016
   - piaggio_vespa_2017
   - piaggio_vespa_2018
   - piaggio_vespa_2019
   - piaggio_vespa_2020
   - piaggio_vespa_2022
+  - piaggio_vespa_2023
   - piaggio_vespa_2024
   - piaggio_vespa_2025
-  - piaggio_vespa_2026
-  - piaggio_vespa_gts_super_2014
-  - piaggio_vespa_gts_super_2015
-  - piaggio_vespa_gts_super_2016
+  - piaggio_vespa_gts_super_2017
   - piaggio_vespa_gts_super_2018
   - piaggio_vespa_gts_super_2019
   - piaggio_vespa_gts_super_2020
   - piaggio_vespa_gts_super_2023
+  - piaggio_vespa_gtv_300_2021
+  - piaggio_vespa_gtv_300_2022
   - piaggio_vespa_gtv_300_2024
   - piaggio_vespa_lx_125_2006
   - piaggio_vespa_lx_125_2009
   - piaggio_vespa_lx_125_2010
   - piaggio_vespa_lx_125_2011
+  - piaggio_vespa_lx_125_2012
   - piaggio_vespa_lx_125_2013
+  - piaggio_vespa_lx_125_2014
   - piaggio_vespa_lx_125_2015
+  - piaggio_vespa_lx_125_2018
+  - piaggio_vespa_lx_125_2019
   - piaggio_vespa_lx_125_2020
+  - piaggio_vespa_primavera_2014
   - piaggio_vespa_primavera_2015
+  - piaggio_vespa_primavera_2016
   - piaggio_vespa_primavera_2017
   - piaggio_vespa_primavera_2018
-  - piaggio_vespa_primavera_2020
+  - piaggio_vespa_primavera_2019
   - piaggio_vespa_primavera_2022
   - piaggio_vespa_primavera_2023
+  - piaggio_vespa_primavera_2025
   - piaggio_vespa_s125_3vie_2014
-  - piaggio_vespa_s125_3vie_2017
   - piaggio_vespa_s125_3vie_2021
   - piaggio_vespa_s125_3vie_2025
   - piaggio_vespa_sprint_2014
-  - piaggio_vespa_sprint_2015
   - piaggio_vespa_sprint_2016
   - piaggio_vespa_sprint_2017
   - piaggio_vespa_sprint_2018
-  - piaggio_vespa_sprint_2019
   - piaggio_vespa_sprint_2020
   - piaggio_vespa_sprint_2021
   - piaggio_vespa_sprint_2022
   - piaggio_vespa_sprint_2023
   - piaggio_vespa_sprint_2024
   - piaggio_vespa_sprint_2025
+  - piaggio_zip_2010
+  - piaggio_zip_2014
   - piaggio_zip_2015
   - piaggio_zip_2016
   - piaggio_zip_2018
   - piaggio_zip_2019
-  - porsche_718_2019
-  - porsche_718_2022
+  - piaggio_zip_2022
   - porsche_cayenne_2005
-  - porsche_cayenne_2007
   - porsche_cayenne_2008
   - porsche_cayenne_2009
-  - porsche_cayenne_2011
-  - porsche_cayenne_2015
   - porsche_cayenne_2016
   - porsche_cayenne_2017
   - porsche_cayenne_2020
-  - porsche_cayman_2008
   - porsche_cayman_2022
   - porsche_macan_2014
-  - porsche_macan_2018
   - porsche_macan_2020
   - porsche_macan_2021
-  - porsche_macan_2023
   - porsche_macan_2024
-  - porsche_panamera_2010
-  - porsche_panamera_2012
+  - porsche_panamera_2011
   - porsche_panamera_2018
-  - porsche_panamera_2019
   - porsche_panamera_2021
   - porsche_panamera_2022
   - porsche_panamera_2025
@@ -1774,18 +1455,14 @@ names:
   - smart_fortwo_2010
   - smart_fortwo_2015
   - srm_868_2023
-  - srm_868_2024
   - srm_s1_2025
   - srm_s1_2026
   - srm_t20_2022
   - srm_t35_2025
   - srm_x30_2022
   - srm_x30_2023
-  - srm_x30i_2024
   - srm_x30l_2026
   - srm_x30lp_dai_2m6_2026
-  - ssangyong_xlv_2016
-  - ssangyong_xlv_2017
   - subaru_forester_2019
   - subaru_forester_2020
   - subaru_forester_2022
@@ -1794,216 +1471,178 @@ names:
   - suzuki_apv_2021
   - suzuki_apv_2024
   - suzuki_axelo_2013
-  - suzuki_axelo_2015
-  - suzuki_axelo_2017
-  - suzuki_blind_2019
-  - suzuki_blind_2021
-  - suzuki_blind_2022
+  - suzuki_bandit_150cc_cuoi_1998
+  - suzuki_bandit_150cc_cuoi_2011
+  - suzuki_bandit_150cc_cuoi_2018
+  - suzuki_bandit_150cc_cuoi_2023
   - suzuki_carry_2003
-  - suzuki_carry_2004
-  - suzuki_carry_2005
   - suzuki_carry_2006
-  - suzuki_carry_2008
   - suzuki_carry_2009
   - suzuki_carry_2010
   - suzuki_carry_2011
-  - suzuki_carry_2012
-  - suzuki_carry_2014
-  - suzuki_carry_2015
+  - suzuki_carry_2017
   - suzuki_carry_2018
   - suzuki_carry_2019
   - suzuki_carry_2021
+  - suzuki_carry_2024
   - suzuki_carry_2026
+  - suzuki_carry_pro_2020
   - suzuki_carry_pro_2022
   - suzuki_carry_pro_2025
   - suzuki_carry_pro_2026
   - suzuki_carry_truck_2002
-  - suzuki_carry_truck_2004
-  - suzuki_carry_truck_2008
   - suzuki_carry_truck_2013
   - suzuki_carry_truck_2020
-  - suzuki_celerio_2018
   - suzuki_celerio_2019
-  - suzuki_ciaz_2018
-  - suzuki_ciaz_2019
   - suzuki_ciaz_2021
+  - suzuki_eeco_2021
   - suzuki_eeco_2026
-  - suzuki_en150a_2014
   - suzuki_ertiga_2014
   - suzuki_ertiga_2015
-  - suzuki_ertiga_2018
   - suzuki_ertiga_2019
-  - suzuki_ertiga_2020
   - suzuki_ertiga_2021
+  - suzuki_ertiga_2022
   - suzuki_ertiga_2023
-  - suzuki_fronx_2025
   - suzuki_fx125_2000
-  - suzuki_fx125_2002
-  - suzuki_gd_110_2020
+  - suzuki_gn125_1995
+  - suzuki_gn125_2003
   - suzuki_gn125_2018
+  - suzuki_gsx_r150_2018
   - suzuki_gsx_r150_2019
   - suzuki_gsx_r150_2020
   - suzuki_gsx_r150_2021
   - suzuki_gsx_r150_2022
-  - suzuki_gsx_r150_2023
-  - suzuki_gz_150_2017
-  - suzuki_gz_150_2018
-  - suzuki_gz_150_2019
+  - suzuki_gz150a_2018
+  - suzuki_gz150a_2019
+  - suzuki_gz150a_2020
+  - suzuki_hayate_bstp_de_2010
+  - suzuki_hayate_bstp_de_2011
   - suzuki_impulse_125_fi_2015
   - suzuki_jimny_2024
-  - suzuki_jimny_2025
   - suzuki_pro_2021
   - suzuki_pro_2026
-  - suzuki_raider_2009
   - suzuki_raider_2014
   - suzuki_raider_2017
-  - suzuki_raider_2019
   - suzuki_raider_2020
-  - suzuki_raider_2021
-  - suzuki_razer_fi150_2017
-  - suzuki_razer_fi150_2021
-  - suzuki_razer_fi150_2023
-  - suzuki_satria_2017
+  - suzuki_raider_2022
+  - suzuki_satria_2000
   - suzuki_satria_2018
-  - suzuki_satria_2019
-  - suzuki_satria_2021
-  - suzuki_satria_2022
+  - suzuki_satria_2020
   - suzuki_satria_2023
-  - suzuki_super_carry_2000
+  - suzuki_super_carry_2005
   - suzuki_super_carry_2018
   - suzuki_super_carry_2019
   - suzuki_super_carry_2021
   - suzuki_super_carry_2022
-  - suzuki_super_carry_2023
-  - suzuki_super_carry_van_2014
   - suzuki_super_carry_van_2022
-  - suzuki_swift_2013
-  - suzuki_swift_2015
-  - suzuki_swift_2016
-  - suzuki_swift_2019
+  - suzuki_super_carry_van_2023
+  - suzuki_super_carry_van_2024
   - suzuki_swift_2020
-  - suzuki_swift_2022
+  - suzuki_swift_2021
   - suzuki_swift_2025
   - suzuki_swift_2026
-  - suzuki_vitara_2003
-  - suzuki_vitara_2005
-  - suzuki_viva_1999
-  - suzuki_viva_2006
-  - suzuki_viva_2015
+  - suzuki_vitara_2011
+  - suzuki_vitara_2016
+  - suzuki_viva_2002
   - suzuki_wagon_r_2001
   - suzuki_wagon_r_2002
   - suzuki_wagon_r_2005
-  - suzuki_xl_7_2020
+  - suzuki_xipo_110_hqcn_1995
+  - suzuki_xipo_110_hqcn_1998
+  - suzuki_xipo_110_hqcn_2015
   - suzuki_xl_7_2022
   - suzuki_xl_7_2023
   - suzuki_xl_7_2024
-  - suzuki_xl_7_2025
   - suzuki_xl_7_2026
-  - sym_angela_50cc_2015
-  - sym_angela_50cc_2019
-  - sym_attila_2004
-  - sym_attila_2017
-  - sym_attila_2023
-  - sym_attila_elizabeth_2008
-  - sym_attila_elizabeth_2011
-  - sym_elegant_50cc_2014
+  - sym_angela_50cc_2016
+  - sym_attila_2012
+  - sym_attila_2014
+  - sym_attila_2022
+  - sym_elegant_50cc_2013
+  - sym_elegant_50cc_2017
+  - sym_elegant_50cc_2018
+  - sym_elegant_50cc_2020
   - sym_elegant_50cc_2023
-  - sym_elite_50cc_2018
-  - sym_elite_50cc_2019
-  - sym_elite_50cc_2022
-  - sym_elite_50cc_2023
-  - sym_galaxy_50cc_2020
+  - sym_elite_50_2017
+  - sym_elite_50_2018
   - sym_galaxy_50cc_2023
-  - sym_hz_110_2008
-  - sym_hz_110_2019
-  - sym_hz_110_2024
-  - sym_hz_110_2025
-  - sym_shark_2010
-  - sym_shark_2013
+  - sym_max_2009
+  - sym_max_2011
+  - sym_max_2015
+  - sym_max_2019
+  - sym_max_2023
+  - sym_max_2024
+  - sym_star_sr_125_2003
   - sym_star_sr_125_2019
-  - sym_star_sr_125_2020
-  - tera_v6_2025
+  - tera_100_2022
   - tera_v6_2026
+  - teraco_tera_100_2020
+  - teraco_tera_100_2024
   - teraco_tera_v_2022
   - teraco_tera_v_2023
-  - teraco_tera_v_2024
   - teraco_v8_2025
   - teraco_v8_2026
   - thaco_auman_2015
-  - thaco_auman_2016
-  - thaco_ollin_2021
-  - thaco_ollin_800a_2014
+  - thaco_foton_2007
+  - thaco_foton_2008
+  - thaco_foton_2012
+  - thaco_frontier_2024
+  - thaco_frontier_tf420v_2023
+  - thaco_frontier_tf420v_2026
+  - thaco_frontier_tf450v_2s_2026
+  - thaco_olin_2010
+  - thaco_olin_500b_2016
+  - thaco_ollin_2016
   - thaco_tf220_2025
-  - thaco_tf420_2025
-  - thaco_tf420_2026
   - thaco_tf450_2023
   - thaco_tf450_2024
-  - thaco_tf480_2026
-  - thaco_towner_2017
-  - thaco_towner_2026
+  - thaco_tf480_2024
+  - thaco_tf480_2025
+  - thaco_tf_220_2023
+  - thaco_towner_2014
+  - thaco_towner_2021
   - thaco_towner_2s_2021
-  - thaco_towner_750a_2014
   - thaco_towner_800_2018
-  - thaco_towner_990_2020
-  - toyota_alphard_2019
-  - toyota_alphard_2021
   - toyota_alphard_2023
   - toyota_alphard_2026
-  - toyota_avanza_premio_2022
-  - toyota_avanza_premio_2023
+  - toyota_avanza_premio_2024
   - toyota_avanza_premio_2025
   - toyota_camry_1984
-  - toyota_camry_1987
   - toyota_camry_1988
   - toyota_camry_1989
   - toyota_camry_1991
   - toyota_camry_1992
-  - toyota_camry_1993
-  - toyota_camry_1995
-  - toyota_camry_1997
   - toyota_camry_1998
   - toyota_camry_1999
-  - toyota_camry_2002
-  - toyota_camry_2004
-  - toyota_camry_2006
   - toyota_camry_2007
   - toyota_camry_2008
-  - toyota_camry_2009
-  - toyota_camry_2010
-  - toyota_camry_2011
   - toyota_camry_2012
   - toyota_camry_2013
   - toyota_camry_2014
+  - toyota_camry_2015
   - toyota_camry_2016
   - toyota_camry_2017
   - toyota_camry_2019
+  - toyota_camry_2020
   - toyota_camry_2021
   - toyota_camry_2022
-  - toyota_camry_2025
+  - toyota_camry_2023
   - toyota_camry_2026
-  - toyota_corolla_1990
   - toyota_corolla_1993
   - toyota_corolla_1997
   - toyota_corolla_2008
   - toyota_corolla_2009
-  - toyota_corolla_2013
   - toyota_corolla_2016
   - toyota_corolla_2022
-  - toyota_corolla_altis_2003
   - toyota_corolla_altis_2004
   - toyota_corolla_altis_2005
-  - toyota_corolla_altis_2007
   - toyota_corolla_altis_2008
-  - toyota_corolla_altis_2009
-  - toyota_corolla_altis_2010
   - toyota_corolla_altis_2011
   - toyota_corolla_altis_2012
   - toyota_corolla_altis_2013
-  - toyota_corolla_altis_2014
   - toyota_corolla_altis_2015
   - toyota_corolla_altis_2016
-  - toyota_corolla_altis_2018
-  - toyota_corolla_altis_2019
+  - toyota_corolla_altis_2017
   - toyota_corolla_altis_2020
   - toyota_corolla_altis_2021
   - toyota_corolla_altis_2022
@@ -2011,24 +1650,21 @@ names:
   - toyota_corolla_cross_2021
   - toyota_corolla_cross_2022
   - toyota_corolla_cross_2023
-  - toyota_corolla_cross_2024
   - toyota_corolla_cross_2025
-  - toyota_corolla_cross_2026
-  - toyota_corona_1992
+  - toyota_corona_1993
   - toyota_corona_1994
   - toyota_cressida_1989
+  - toyota_cressida_1993
   - toyota_cressida_1996
-  - toyota_fortuner_2008
   - toyota_fortuner_2009
   - toyota_fortuner_2010
   - toyota_fortuner_2011
-  - toyota_fortuner_2012
-  - toyota_fortuner_2013
   - toyota_fortuner_2014
-  - toyota_fortuner_2015
+  - toyota_fortuner_2016
+  - toyota_fortuner_2017
+  - toyota_fortuner_2018
   - toyota_fortuner_2020
-  - toyota_fortuner_2021
-  - toyota_fortuner_2024
+  - toyota_fortuner_2022
   - toyota_fortuner_2025
   - toyota_fortuner_2026
   - toyota_hiace_2001
@@ -2036,30 +1672,28 @@ names:
   - toyota_hiace_2003
   - toyota_hiace_2004
   - toyota_hiace_2005
+  - toyota_hiace_2006
   - toyota_hiace_2007
   - toyota_hiace_2008
-  - toyota_hiace_2013
+  - toyota_hiace_2010
+  - toyota_hiace_2014
   - toyota_hiace_2015
   - toyota_hilux_2012
+  - toyota_hilux_2015
   - toyota_hilux_2018
   - toyota_hilux_2019
   - toyota_hilux_2020
+  - toyota_hilux_2021
+  - toyota_hilux_2024
+  - toyota_hilux_2025
   - toyota_hilux_2026
-  - toyota_innova_2006
-  - toyota_innova_2007
   - toyota_innova_2008
   - toyota_innova_2009
   - toyota_innova_2010
-  - toyota_innova_2011
   - toyota_innova_2012
   - toyota_innova_2013
-  - toyota_innova_2014
   - toyota_innova_2015
   - toyota_innova_2016
-  - toyota_innova_2017
-  - toyota_innova_2018
-  - toyota_innova_2019
-  - toyota_innova_2020
   - toyota_innova_2022
   - toyota_innova_2023
   - toyota_innova_2024
@@ -2068,56 +1702,43 @@ names:
   - toyota_innova_cross_2024
   - toyota_innova_cross_2025
   - toyota_innova_cross_2026
-  - toyota_iq_2009
+  - toyota_land_cruiser_2003
   - toyota_land_cruiser_2004
   - toyota_land_cruiser_2005
-  - toyota_land_cruiser_2010
   - toyota_land_cruiser_2016
+  - toyota_land_cruiser_2019
   - toyota_land_cruiser_2020
   - toyota_land_cruiser_lc300_2021
-  - toyota_land_cruiser_prado_2007
+  - toyota_land_cruiser_lc300_2024
   - toyota_land_cruiser_prado_2009
-  - toyota_land_cruiser_prado_2010
-  - toyota_land_cruiser_prado_2026
+  - toyota_land_cruiser_prado_2022
   - toyota_liteace_1981
   - toyota_liteace_1985
   - toyota_prado_2003
   - toyota_prado_2015
   - toyota_prado_2017
-  - toyota_prado_2022
-  - toyota_previa_1991
   - toyota_previa_1993
   - toyota_raize_2021
-  - toyota_raize_2023
+  - toyota_raize_2022
   - toyota_raize_2024
-  - toyota_raize_2025
   - toyota_raize_2026
-  - toyota_rav4_2007
   - toyota_rav4_2008
+  - toyota_rush_2018
   - toyota_rush_2019
-  - toyota_rush_2020
   - toyota_sienna_2007
   - toyota_sienna_2008
   - toyota_sienna_2010
+  - toyota_sienna_2012
   - toyota_sienna_2013
-  - toyota_sienna_2015
   - toyota_sienna_2016
-  - toyota_sienna_2017
-  - toyota_sienna_2021
   - toyota_sienna_2023
   - toyota_veloz_cross_2022
   - toyota_veloz_cross_2023
-  - toyota_veloz_cross_2024
-  - toyota_veloz_cross_2025
   - toyota_veloz_cross_2026
-  - toyota_venza_2009
   - toyota_venza_2010
-  - toyota_vios_2004
   - toyota_vios_2006
   - toyota_vios_2007
   - toyota_vios_2008
-  - toyota_vios_2009
-  - toyota_vios_2010
   - toyota_vios_2011
   - toyota_vios_2012
   - toyota_vios_2013
@@ -2125,125 +1746,105 @@ names:
   - toyota_vios_2015
   - toyota_vios_2016
   - toyota_vios_2017
-  - toyota_vios_2018
   - toyota_vios_2019
   - toyota_vios_2020
   - toyota_vios_2021
-  - toyota_vios_2023
+  - toyota_vios_2022
   - toyota_vios_2024
+  - toyota_vios_2025
   - toyota_vios_2026
   - toyota_wigo_2018
-  - toyota_wigo_2019
   - toyota_wigo_2020
   - toyota_wigo_2021
-  - toyota_wigo_2023
   - toyota_wigo_2024
   - toyota_wigo_2025
+  - toyota_wigo_2026
   - toyota_yaris_2007
   - toyota_yaris_2008
-  - toyota_yaris_2009
   - toyota_yaris_2010
   - toyota_yaris_2011
   - toyota_yaris_2013
-  - toyota_yaris_2014
-  - toyota_yaris_2016
   - toyota_yaris_2017
   - toyota_yaris_2018
   - toyota_yaris_2019
   - toyota_yaris_2020
   - toyota_yaris_2021
-  - toyota_yaris_cross_2023
   - toyota_yaris_cross_2025
-  - toyota_yaris_cross_2026
-  - toyota_zace_2000
+  - toyota_zace_2001
   - toyota_zace_2002
   - toyota_zace_2003
-  - toyota_zace_2005
-  - triumph_speed_400_2022
-  - triumph_speed_400_2023
-  - triumph_speed_400_2024
-  - vespa_50cc_2018
+  - toyota_zace_2004
+  - veam_vt260_2016
+  - veam_vt260_2017
+  - vespa_50cc_2023
   - vespa_50cc_2024
+  - vespa_50cc_2025
   - vespa_50cc_2026
-  - vespa_da_su_dung_2019
-  - vespa_da_su_dung_2023
-  - vespa_da_su_dung_2025
+  - vespa_lx150_1983
   - vespa_lx150_2009
-  - vespa_lx150_2010
-  - vespa_lx150_2012
   - vespa_lx150_2014
-  - vespa_lx150_2015
-  - vinfast_ec_van_2025
+  - vespa_lx150_2024
   - vinfast_ec_van_2026
-  - vinfast_evo200_lite_2025
+  - vinfast_evo_200_2022
   - vinfast_evo_200_2024
   - vinfast_evo_grand_2025
   - vinfast_evo_grand_lite_2026
   - vinfast_evo_max_2026
   - vinfast_fadil_2019
-  - vinfast_fadil_2020
   - vinfast_fadil_2021
   - vinfast_fadil_2022
+  - vinfast_fadil_2023
   - vinfast_fadil_2026
-  - vinfast_feliz_1980
-  - vinfast_feliz_2022
+  - vinfast_feliz_2021
+  - vinfast_feliz_2023
+  - vinfast_feliz_2024
   - vinfast_feliz_2025
+  - vinfast_feliz_2026
+  - vinfast_feliz_neo_2024
   - vinfast_herio_green_2025
   - vinfast_herio_green_2026
-  - vinfast_klara_2020
-  - vinfast_klara_2021
-  - vinfast_klara_2023
-  - vinfast_klara_neo_2026
+  - vinfast_klara_a2_60km_2020
   - vinfast_limo_green_2025
-  - vinfast_limo_green_2026
-  - vinfast_lux_a2_0_2019
-  - vinfast_lux_a2_0_2020
   - vinfast_lux_a2_0_2021
-  - vinfast_lux_a2_0_2022
+  - vinfast_lux_sa2_0_2019
   - vinfast_lux_sa2_0_2020
   - vinfast_lux_sa2_0_2021
-  - vinfast_lux_sa2_0_2022
-  - vinfast_lux_sa2_0_2026
+  - vinfast_motio_2025
+  - vinfast_mpv_7_2026
   - vinfast_theon_2024
-  - vinfast_theon_2025
-  - vinfast_vento_2022
+  - vinfast_theon_2026
+  - vinfast_vento_2024
   - vinfast_vento_neo_2025
   - vinfast_verox_2025
-  - vinfast_vf3_2024
   - vinfast_vf3_2025
   - vinfast_vf3_2026
-  - vinfast_vf5_2024
+  - vinfast_vf5_2023
   - vinfast_vf5_2026
+  - vinfast_vf5_plus_2023
+  - vinfast_vf5_plus_2024
+  - vinfast_vf5_plus_2025
   - vinfast_vf6_2023
   - vinfast_vf6_2024
-  - vinfast_vf6_2025
   - vinfast_vf6_2026
-  - vinfast_vf7_2014
   - vinfast_vf7_2024
   - vinfast_vf7_2025
-  - vinfast_vf8_2022
-  - vinfast_vf8_2023
   - vinfast_vf8_2024
   - vinfast_vf8_2026
   - vinfast_vf8_lux_2026
-  - vinfast_vf9_2023
   - vinfast_vf9_2024
   - vinfast_vf9_2025
   - vinfast_vf9_2026
   - vinfast_vfe34_2022
+  - vinfast_vfe34_2023
   - volkswagen_beetle_2007
   - volkswagen_beetle_2009
   - volkswagen_eos_2009
-  - volkswagen_eos_2019
   - volkswagen_golf_2024
-  - volkswagen_passat_2015
   - volkswagen_polo_2014
-  - volkswagen_polo_2016
   - volkswagen_polo_2020
   - volkswagen_polo_2021
   - volkswagen_teramont_2021
   - volkswagen_teramont_2022
-  - volkswagen_teramont_2023
   - volkswagen_teramont_2024
   - volkswagen_teramont_2025
   - volkswagen_teramont_x_2024
@@ -2251,128 +1852,141 @@ names:
   - volkswagen_tiguan_2010
   - volkswagen_tiguan_2014
   - volkswagen_tiguan_2019
-  - volkswagen_tiguan_2025
   - volkswagen_viloran_2024
   - volkswagen_viloran_2025
+  - volvo_xc60_2021
   - volvo_xc60_2022
-  - volvo_xc60_2025
-  - volvo_xc90_2021
   - wuling_hongguang_mini_ev_2024
   - wuling_hongguang_mini_ev_2025
-  - yadea_oris_2024
   - yadea_oris_2025
-  - yadea_xbull_2025
-  - yadea_yd3000dt_2023
-  - yamaha_acruzo_2015
+  - yadea_yd3000dt_2020
+  - yamaha_acruzo_2016
   - yamaha_acruzo_2018
+  - yamaha_exciter_150_2006
   - yamaha_exciter_150_2010
+  - yamaha_exciter_150_2014
   - yamaha_exciter_150_2015
+  - yamaha_exciter_150_2016
   - yamaha_exciter_150_2017
   - yamaha_exciter_150_2018
   - yamaha_exciter_150_2019
-  - yamaha_exciter_150_2020
+  - yamaha_exciter_150_2021
+  - yamaha_exciter_150_2022
   - yamaha_exciter_150_2023
   - yamaha_exciter_150_2025
   - yamaha_freego_2016
   - yamaha_freego_2020
-  - yamaha_freego_2022
+  - yamaha_freego_2023
+  - yamaha_freego_2024
   - yamaha_fz150i_2013
+  - yamaha_fz150i_2014
   - yamaha_fz150i_2015
   - yamaha_fz150i_2016
   - yamaha_fz150i_2017
   - yamaha_grande_2015
+  - yamaha_grande_2016
   - yamaha_grande_2018
-  - yamaha_grande_2019
-  - yamaha_grande_2021
+  - yamaha_grande_2020
   - yamaha_grande_2022
   - yamaha_grande_2023
   - yamaha_grande_2024
-  - yamaha_grande_2025
   - yamaha_grande_2026
   - yamaha_janus_2014
   - yamaha_janus_2016
-  - yamaha_janus_2017
   - yamaha_janus_2018
-  - yamaha_janus_2022
+  - yamaha_janus_2019
+  - yamaha_janus_2020
+  - yamaha_janus_2021
   - yamaha_janus_2023
   - yamaha_janus_2025
+  - yamaha_jupiter_2002
   - yamaha_jupiter_2004
   - yamaha_jupiter_2005
-  - yamaha_jupiter_2009
+  - yamaha_jupiter_2006
   - yamaha_jupiter_2010
   - yamaha_jupiter_2011
   - yamaha_jupiter_2012
+  - yamaha_jupiter_2013
   - yamaha_jupiter_2014
-  - yamaha_jupiter_2016
+  - yamaha_jupiter_2015
   - yamaha_jupiter_2017
   - yamaha_jupiter_2018
   - yamaha_jupiter_2019
   - yamaha_jupiter_2020
   - yamaha_jupiter_2021
+  - yamaha_jupiter_2022
   - yamaha_latte_2020
   - yamaha_latte_2021
   - yamaha_latte_2022
   - yamaha_latte_2023
-  - yamaha_luvias_2012
-  - yamaha_luvias_2016
+  - yamaha_luvias_2013
+  - yamaha_luvias_2014
+  - yamaha_mio_2004
   - yamaha_mio_2005
-  - yamaha_mio_2006
   - yamaha_mio_2008
   - yamaha_mio_2009
-  - yamaha_mio_2010
-  - yamaha_mio_2011
-  - yamaha_mio_2012
-  - yamaha_mio_2014
+  - yamaha_mio_2013
   - yamaha_mio_2017
-  - yamaha_mio_2020
-  - yamaha_mio_2022
   - yamaha_mio_2023
+  - yamaha_mt15_2017
+  - yamaha_mt15_2019
+  - yamaha_mt15_2020
   - yamaha_mt15_2021
   - yamaha_mt15_2022
-  - yamaha_mt15_2023
   - yamaha_mt15_2025
   - yamaha_mx_king_2015
   - yamaha_mx_king_2016
+  - yamaha_mx_king_2017
   - yamaha_mx_king_2018
-  - yamaha_mx_king_2019
-  - yamaha_mx_king_2022
+  - yamaha_mx_king_2020
+  - yamaha_mx_king_2021
+  - yamaha_mx_king_2023
   - yamaha_mx_king_2024
   - yamaha_mx_king_2025
   - yamaha_mx_king_2026
-  - yamaha_nozza_2013
+  - yamaha_nmax_155_2015
+  - yamaha_nozza_2011
   - yamaha_nozza_2014
   - yamaha_nozza_2015
-  - yamaha_nozza_2016
   - yamaha_nvx_155_abs_2017
+  - yamaha_nvx_155_abs_2018
   - yamaha_nvx_155_abs_2019
   - yamaha_nvx_155_abs_2020
-  - yamaha_nvx_155_abs_2024
-  - yamaha_nvx_155_abs_2025
+  - yamaha_nvx_155_abs_2021
+  - yamaha_nvx_155_abs_2022
   - yamaha_nvx_155_abs_2026
   - yamaha_pg_1_2024
-  - yamaha_r15v3_2011
-  - yamaha_r15v3_2017
+  - yamaha_pg_1_2025
+  - yamaha_pg_1_2026
+  - yamaha_r15v3_2018
   - yamaha_r15v3_2019
   - yamaha_r15v3_2020
   - yamaha_r15v3_2021
+  - yamaha_r15v3_2022
+  - yamaha_r15v3_2023
   - yamaha_r15v3_2025
+  - yamaha_sirius_2006
   - yamaha_sirius_2007
   - yamaha_sirius_2010
   - yamaha_sirius_2011
-  - yamaha_sirius_2013
-  - yamaha_sirius_2019
+  - yamaha_sirius_2012
+  - yamaha_sirius_2015
+  - yamaha_sirius_2016
+  - yamaha_sirius_2017
+  - yamaha_sirius_2018
   - yamaha_sirius_2021
-  - yamaha_sirius_2022
   - yamaha_sirius_2024
-  - yamaha_tfx_150_2021
-  - yamaha_xsr_155_2020
+  - yamaha_sirius_2025
+  - yamaha_sirius_2026
+  - yamaha_tfx_150_2017
+  - yamaha_tfx_150_2019
+  - yamaha_xsr_155_2021
+  - yamaha_xsr_155_2022
   - yamaha_xsr_155_2023
   - yamaha_xsr_155_2024
   - yamaha_xsr_155_2025
   - yamaha_xsr_155_2026
   - yamaha_yaz_2000
-  - yamaha_yaz_2017
-  - yamaha_yaz_2021
-  - yamaha_yb_125_2018
+  - yamaha_yb_125_2017
   - yamaha_yb_125_2021
   - zotye_t700_2018

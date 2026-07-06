@@ -69,6 +69,7 @@ if real:
     classified = [v for v in r["vehicles"] if v["det_class"] in api.CLASSIFY_CLS]
     assert all(isinstance(v["color"], dict) and "color" in v["color"] for v in classified), classified
     assert all("year" in v for v in classified), classified
+    assert all("bodystyle" in v for v in classified), classified  # None if models/bodystyle_model.pt absent
     assert "annotated" not in r, "annotated should be absent when annotate=False"
     # annotate path
     ra = api.handle("car.jpg", rb, 3, detect=True, annotate=True)

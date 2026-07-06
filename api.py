@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "code" / "color"))
 from color_heuristic import estimate_color  # noqa: E402
 
 CKPT = "model.pt"
+BODYSTYLE_CKPT = "models/bodystyle_model.pt"
 DET_WEIGHTS = "weights/vehicle/vehicle_yolov9s_640_30oct2025.pt"
 CLASSIFY_CLS = {"car", "bus", "truck"}  # crop+classify these; bicycle/motorbike have no VMMRdb make/model
 MAX_FRAMES = 16          # ponytail: cap frames/video so a long clip or live stream can't run forever
@@ -40,11 +41,17 @@ ALLOWED_SCHEMES = {"rtsp", "rtsps", "http", "https"}
 # ffmpeg protocol allowlist — excludes file/concat/subfile/data to block arbitrary file read
 PROTO_WHITELIST = "rtsp,rtsps,tcp,udp,tls,http,https"
 CONF_MIN = 0.25          # drop make/model preds below this; empty list -> no classification
+BODYSTYLE_CONF_MIN = 0.25  # below this -> bodystyle: null
 
 log = logging.getLogger("api")
 
 TF = transforms.Compose([
     transforms.Resize(256), transforms.CenterCrop(224), transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+# matches code/bodystyle/train_bodystyle.py's eval transform exactly (plain square resize, no crop)
+BODYSTYLE_TF = transforms.Compose([
+    transforms.Resize((224, 224)), transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
 ])
 
@@ -77,6 +84,36 @@ def _parse_year(label: str):
     """'honda_civic_2012' -> 2012. Labels without a trailing 4-digit year -> None."""
     m = re.search(r"(19|20)\d{2}$", label)
     return int(m.group()) if m else None
+
+
+_bodystyle = None
+def bodystyle_model():  # lazy: only load if models/bodystyle_model.pt exists and is first requested
+    global _bodystyle
+    if _bodystyle is None:
+        ck = torch.load(BODYSTYLE_CKPT, map_location=dev, weights_only=True)
+        m = models.resnet18(num_classes=len(ck["classes"]))
+        m.load_state_dict(ck["state_dict"])
+        m.eval().to(dev)
+        _bodystyle = (m, ck["classes"])
+    return _bodystyle
+
+
+def classify_bodystyle(imgs: List[Image.Image]):
+    """Batch top1 bodystyle per image, or None below BODYSTYLE_CONF_MIN. [] in -> [] out."""
+    if not imgs:
+        return []
+    if not Path(BODYSTYLE_CKPT).is_file():
+        return [None] * len(imgs)
+    m, bs_classes = bodystyle_model()
+    x = torch.stack([BODYSTYLE_TF(i.convert("RGB")) for i in imgs]).to(dev)
+    with torch.no_grad():
+        probs = m(x).softmax(1)
+    out = []
+    for prob in probs:
+        conf, idx = prob.max(0)
+        out.append({"label": bs_classes[idx], "confidence": round(conf.item(), 4)}
+                   if conf.item() >= BODYSTYLE_CONF_MIN else None)
+    return out
 
 
 _yolo = None
@@ -129,17 +166,20 @@ def detect_frame(img: Image.Image, track: bool, topk: int, annotate: bool = Fals
         xyxy = [round(v) for v in b.xyxy[0].tolist()]
         det_class = m.names[int(b.cls)]
         v = {"bbox": xyxy, "det_class": det_class, "det_conf": round(float(b.conf), 4),
-             "vehicle_type": det_class, "make_model": None, "year": None, "color": None}
+             "vehicle_type": det_class, "make_model": None, "year": None, "color": None,
+             "bodystyle": None}
         if track:
             v["track_id"] = int(b.id) if b.id is not None else None
         if v["det_class"] in CLASSIFY_CLS:
             crops.append(img.crop(xyxy)); to_fill.append(v)
         vehicles.append(v)
-    for v, crop, p in zip(to_fill, crops, classify(crops, topk)):
+    bodystyles = classify_bodystyle(crops)
+    for v, crop, p, bs in zip(to_fill, crops, classify(crops, topk), bodystyles):
         v["make_model"] = p or None  # None when all preds below CONF_MIN
         if p:
             v["year"] = _parse_year(p[0]["label"])
         v["color"] = estimate_color(crop)
+        v["bodystyle"] = bs
     out = {"vehicles": vehicles}
     if annotate:
         out["annotated"] = _annotated(img, vehicles)
@@ -253,7 +293,8 @@ async def predict(files: List[UploadFile] = File(default=[]),
 
 @app.get("/health")
 def health():
-    return {"classes": len(classes), "device": dev}
+    return {"classes": len(classes), "device": dev,
+             "bodystyle_available": Path(BODYSTYLE_CKPT).is_file()}
 
 
 if __name__ == "__main__":  # `uv run api.py` -> serves here; CLI uvicorn flags still override

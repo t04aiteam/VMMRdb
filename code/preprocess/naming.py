@@ -3,14 +3,14 @@
 Matches VMMRdb / model.pt: lowercase, underscore-separated, "<make>_<model>[_<year>]".
 Year is omitted (not "_unknown") when the source dataset has no year label.
 
-data/ is gitignored and lives only in the main checkout, not per-worktree ->
-converters import MAIN_REPO from here and read/write under MAIN_REPO / "data".
+dataset/ is gitignored and lives only in the main checkout, not per-worktree ->
+converters import MAIN_REPO from here and read/write under MAIN_REPO / "dataset".
 """
 import re
 from pathlib import Path
 
-MAIN_REPO = Path("/Users/logan/Developer/vibes/WORK/CLS/VMMRdb")
-DATA = MAIN_REPO / "data"
+MAIN_REPO = Path("/mnt/data/nblong-t04/VMMRdb")
+DATA = MAIN_REPO / "dataset"
 
 _CAMEL = re.compile(r"(?<=[a-z0-9])(?=[A-Z])")
 _NONALNUM = re.compile(r"[^a-z0-9]+")

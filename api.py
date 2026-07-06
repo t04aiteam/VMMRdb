@@ -9,11 +9,14 @@ One endpoint. Smart-accepts many files at once + stream URLs:
        -F 'urls=rtsp://cam/stream' http://0.0.0.0:8100/predict
 """
 import io
+import re
+import sys
 import base64
 import zipfile
 import socket
 import logging
 import ipaddress
+from pathlib import Path
 from urllib.parse import urlparse, urlunparse
 from typing import List
 import torch
@@ -23,6 +26,9 @@ import av
 from ultralytics import YOLO
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import Response
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "code" / "color"))
+from color_heuristic import estimate_color  # noqa: E402
 
 CKPT = "model.pt"
 DET_WEIGHTS = "weights/vehicle/vehicle_yolov9s_640_30oct2025.pt"
@@ -65,6 +71,12 @@ def classify(imgs: List[Image.Image], topk: int):
         out.append([{"label": classes[i], "confidence": round(v.item(), 4)}
                     for v, i in zip(p, idx) if v.item() >= CONF_MIN])
     return out
+
+
+def _parse_year(label: str):
+    """'honda_civic_2012' -> 2012. Labels without a trailing 4-digit year -> None."""
+    m = re.search(r"(19|20)\d{2}$", label)
+    return int(m.group()) if m else None
 
 
 _yolo = None
@@ -115,15 +127,19 @@ def detect_frame(img: Image.Image, track: bool, topk: int, annotate: bool = Fals
     vehicles, crops, to_fill = [], [], []
     for b in res.boxes:
         xyxy = [round(v) for v in b.xyxy[0].tolist()]
-        v = {"bbox": xyxy, "det_class": m.names[int(b.cls)], "det_conf": round(float(b.conf), 4),
-             "make_model": None}
+        det_class = m.names[int(b.cls)]
+        v = {"bbox": xyxy, "det_class": det_class, "det_conf": round(float(b.conf), 4),
+             "vehicle_type": det_class, "make_model": None, "year": None, "color": None}
         if track:
             v["track_id"] = int(b.id) if b.id is not None else None
         if v["det_class"] in CLASSIFY_CLS:
             crops.append(img.crop(xyxy)); to_fill.append(v)
         vehicles.append(v)
-    for v, p in zip(to_fill, classify(crops, topk)):
+    for v, crop, p in zip(to_fill, crops, classify(crops, topk)):
         v["make_model"] = p or None  # None when all preds below CONF_MIN
+        if p:
+            v["year"] = _parse_year(p[0]["label"])
+        v["color"] = estimate_color(crop)
     out = {"vehicles": vehicles}
     if annotate:
         out["annotated"] = _annotated(img, vehicles)

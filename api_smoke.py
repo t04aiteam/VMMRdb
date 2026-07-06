@@ -15,6 +15,9 @@ os.chdir(tmp)
 sys.path.insert(0, str(Path(__file__).parent))
 import api  # loads tmp/model.pt
 
+assert api._parse_year("honda_civic_2012") == 2012
+assert api._parse_year("aito_ask_world_m5") is None
+
 def jpg_bytes(color):
     b = io.BytesIO(); Image.new("RGB", (300, 300), color).save(b, "JPEG"); return b.getvalue()
 
@@ -62,6 +65,10 @@ if real:
     r = api.handle("car.jpg", rb, 3, detect=True)
     assert r["type"] == "image" and isinstance(r["vehicles"], list), r
     assert all("bbox" in v and "make_model" in v for v in r["vehicles"]), r
+    assert all(v["vehicle_type"] == v["det_class"] for v in r["vehicles"]), r
+    classified = [v for v in r["vehicles"] if v["det_class"] in api.CLASSIFY_CLS]
+    assert all(isinstance(v["color"], dict) and "color" in v["color"] for v in classified), classified
+    assert all("year" in v for v in classified), classified
     assert "annotated" not in r, "annotated should be absent when annotate=False"
     # annotate path
     ra = api.handle("car.jpg", rb, 3, detect=True, annotate=True)

@@ -29,9 +29,11 @@ def main():
     p.add_argument("--out", default="model.pt")
     p.add_argument("--workers", type=int, default=8)
     p.add_argument("--resume", default=None, help="checkpoint to continue from (e.g. model.pt)")
+    p.add_argument("--no-amp", action="store_true", help="disable mixed precision (diagnostic: rule out GradScaler collapse)")
     a = p.parse_args()
 
     dev = "cuda" if torch.cuda.is_available() else "cpu"
+    use_amp = dev == "cuda" and not a.no_amp
     full = datasets.ImageFolder(a.data, allow_empty=True)  # tolerate empty class dirs (e.g. bmw_528_2013)
     n_val = max(1, int(0.1 * len(full)))
     train_ds, val_ds = random_split(full, [len(full) - n_val, n_val],
@@ -64,14 +66,14 @@ def main():
 
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr)
     crit = nn.CrossEntropyLoss()
-    scaler = torch.amp.GradScaler("cuda", enabled=dev == "cuda")
+    scaler = torch.amp.GradScaler("cuda", enabled=use_amp)
 
     for ep in range(a.epochs):
         model.train()
         for i, (x, y) in enumerate(train_dl):
             x, y = x.to(dev, non_blocking=True), y.to(dev, non_blocking=True)
             opt.zero_grad()
-            with torch.amp.autocast("cuda", enabled=dev == "cuda"):
+            with torch.amp.autocast("cuda", enabled=use_amp):
                 loss = crit(model(x), y)
             scaler.scale(loss).backward()
             scaler.step(opt); scaler.update()
@@ -87,7 +89,7 @@ def main():
 
     sd = (model.module if isinstance(model, nn.DataParallel) else model).state_dict()
     torch.save({"state_dict": sd, "classes": classes}, a.out)
-    Path("classes.json").write_text(json.dumps(classes))
+    Path(a.out).with_suffix(".json").write_text(json.dumps(classes))
     print(f"saved {a.out} ({len(classes)} classes)")
 
 

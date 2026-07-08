@@ -9,7 +9,7 @@
 
 | Biến | Mặc định | Công dụng |
 |------|----------|-----------|
-| `baseUrl` | `http://100.111.0.111:8100` | Đổi sang host/port của bạn. Sửa ở cấp collection. |
+| `baseUrl` | `http://0.0.0.0:8100` | Đổi sang host/port của bạn. Sửa ở cấp collection. |
 
 ## Danh sách request
 

@@ -6,7 +6,7 @@ One endpoint. Smart-accepts many files at once + stream URLs:
   - zips                              -> predict every image inside
 
   curl -F 'files=@a.jpg' -F 'files=@clip.mp4' -F 'files=@batch.zip' \
-       -F 'urls=rtsp://cam/stream' http://100.111.0.111:8100/predict
+       -F 'urls=rtsp://cam/stream' http://0.0.0.0:8100/predict
 """
 import io
 import re

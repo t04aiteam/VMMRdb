@@ -8,7 +8,7 @@ Vehicle make/model classifier (ResNet50, trained on merged VMMRdb + vn_vmmr + DV
 uv run uvicorn api:app --host 0.0.0.0 --port 8100
 ```
 
-Base URL: `http://100.111.0.111:8100`
+Base URL: `http://0.0.0.0:8100`
 
 ---
 
@@ -45,19 +45,19 @@ curl -F 'files=@car.jpg' \
      -F 'files=@clip.mp4' \
      -F 'files=@batch.zip' \
      -F 'urls=rtsp://cam.example.com/stream' \
-     'http://100.111.0.111:8100/predict?topk=3&detect=false'
+     'http://0.0.0.0:8100/predict?topk=3&detect=false'
 ```
 
 Annotated image (boxes + labels drawn) as base64 in JSON:
 
 ```bash
-curl -F 'files=@street.jpg' 'http://100.111.0.111:8100/predict?annotate=true' -o out.json
+curl -F 'files=@street.jpg' 'http://0.0.0.0:8100/predict?annotate=true' -o out.json
 ```
 
 Annotated image as a raw JPEG you can open directly:
 
 ```bash
-curl -F 'files=@street.jpg' 'http://100.111.0.111:8100/predict?image=true' -o out.jpg
+curl -F 'files=@street.jpg' 'http://0.0.0.0:8100/predict?image=true' -o out.jpg
 ```
 
 ### Response — `200 OK`
@@ -132,7 +132,7 @@ With `detect=true`: `{"name": "...", "type": "zip", "images": [{"vehicles": [...
 ## `GET /health`
 
 ```bash
-curl http://100.111.0.111:8100/health
+curl http://0.0.0.0:8100/health
 ```
 
 ```json

@@ -6,7 +6,7 @@ One endpoint. Smart-accepts many files at once + stream URLs:
   - zips                              -> predict every image inside
 
   curl -F 'files=@a.jpg' -F 'files=@clip.mp4' -F 'files=@batch.zip' \
-       -F 'urls=rtsp://cam/stream' http://100.111.0.111:8100/predict
+       -F 'urls=rtsp://cam/stream' http://0.0.0.0:8100/predict
 """
 import io
 import base64
@@ -242,4 +242,4 @@ def health():
 
 if __name__ == "__main__":  # `uv run api.py` -> serves here; CLI uvicorn flags still override
     import uvicorn
-    uvicorn.run(app, host="100.111.0.111", port=8100)
+    uvicorn.run(app, host="0.0.0.0", port=8100)

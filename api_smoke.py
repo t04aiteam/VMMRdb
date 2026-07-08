@@ -70,12 +70,7 @@ if real:
     assert all(isinstance(v["color"], dict) and "color" in v["color"] for v in classified), classified
     assert all("year" in v for v in classified), classified
     assert all("bodystyle" in v for v in classified), classified  # None if models/bodystyle_model.pt absent
-    assert "annotated" not in r, "annotated should be absent when annotate=False"
-    # annotate path
-    ra = api.handle("car.jpg", rb, 3, detect=True, annotate=True)
-    assert ra["annotated"].startswith("data:image/jpeg;base64,") and len(ra["annotated"]) > 100, ra.get("annotated", "")[:50]
-    print(f"DETECT OK: {len(r['vehicles'])} vehicle(s) on {Path(real[0]).parent.name}; "
-          f"annotated={len(ra['annotated'])//1024}KB b64")
+    print(f"DETECT OK: {len(r['vehicles'])} vehicle(s) on {Path(real[0]).parent.name}")
 else:
     print("DETECT SKIP: no data/*/*.jpg found")
 

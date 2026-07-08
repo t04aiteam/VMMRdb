@@ -49,27 +49,6 @@
       }
     },
     {
-      "name": "Predict - image + annotate",
-      "request": {
-        "method": "POST",
-        "url": {
-          "raw": "{{baseUrl}}/predict?annotate=true&topk=3",
-          "host": ["{{baseUrl}}"], "path": ["predict"],
-          "query": [
-            {"key": "annotate", "value": "true"},
-            {"key": "topk", "value": "3"}
-          ]
-        },
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {"key": "files", "type": "file", "src": []}
-          ]
-        },
-        "description": "annotate=true implies detect; response adds an `annotated` base64 data-URI image with boxes + top make/model label drawn (preds < 0.25 dropped)."
-      }
-    },
-    {
       "name": "Predict - image (raw JPEG)",
       "request": {
         "method": "POST",
@@ -87,7 +66,7 @@
             {"key": "files", "type": "file", "src": []}
           ]
         },
-        "description": "image=true implies detect; returns the annotated FIRST image as a raw image/jpeg body (renders directly in Postman), not JSON."
+        "description": "image=true implies detect; returns the FIRST image with boxes drawn as a raw image/jpeg body (renders directly in Postman), not JSON."
       }
     },
     {

@@ -30,13 +30,12 @@ Smart-accepts mixed files **and** stream URLs in one request. Each input is auto
 | `files` | file (repeatable) | `[]` | Images, videos, or zips. Repeat field for multiple. |
 | `urls` | string (repeatable) | `[]` | Stream URLs. SSRF-guarded: scheme allowlist + internal/loopback/link-local hosts rejected. |
 | `topk` | int (query) | `3` | Top-K labels per prediction. |
-| `detect` | bool (query) | `false` | `true` → run YOLO vehicle detection, then crop+classify make/model/year/color/bodystyle for car/bus/truck/motorcycle. |
-| `annotate` | bool (query) | `false` | `true` → also return an annotated image (boxes + top make/model label drawn) as a base64 data-URI. Implies `detect`. |
-| `image` | bool (query) | `false` | `true` → return the annotated **first** image as a raw `image/jpeg` body (renders in Postman/browser) instead of JSON. Implies `detect`. |
+| `detect` | bool (query) | `false` | `true` → run YOLO vehicle detection, then crop+classify make/model/year/color/bodystyle for car/bus/truck/motorbike. |
+| `image` | bool (query) | `false` | `true` → return the detected **first** image, boxes drawn, as a raw `image/jpeg` body (renders in Postman/browser) instead of JSON. Implies `detect`. |
 
-`topk`, `detect`, `annotate`, `image` are query params; `files`/`urls` are form fields.
+`topk`, `detect`, `image` are query params; `files`/`urls` are form fields.
 
-Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them); `bodystyle` uses the same 0.25 floor and is `null` below it. Annotated boxes: green = classified vehicle (shows `make_model 0.xx`), orange = other/unclassified (shows `det_class 0.xx`).
+Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them); `bodystyle` uses the same 0.25 floor and is `null` below it. Boxes in the `image=true` render: green = classified vehicle (shows `make_model 0.xx`), orange = other/unclassified (shows `det_class 0.xx`).
 
 ### Example
 
@@ -48,13 +47,7 @@ curl -F 'files=@car.jpg' \
      'http://0.0.0.0:8100/predict?topk=3&detect=false'
 ```
 
-Annotated image (boxes + labels drawn) as base64 in JSON:
-
-```bash
-curl -F 'files=@street.jpg' 'http://0.0.0.0:8100/predict?annotate=true' -o out.json
-```
-
-Annotated image as a raw JPEG you can open directly:
+Detected image (boxes + labels drawn) as a raw JPEG you can open directly:
 
 ```bash
 curl -F 'files=@street.jpg' 'http://0.0.0.0:8100/predict?image=true' -o out.jpg
@@ -95,14 +88,7 @@ Top-level `{"results": [...]}`, one entry per input (files first, then urls). Sh
   ]
 }
 ```
-`vehicle_type` mirrors `det_class` for every detection (free from the YOLO pass, no classification needed). `make_model`/`year`/`color`/`bodystyle` are only filled for car/bus/truck/motorcycle detections (`CLASSIFY_CLS`) — `null` for other YOLO classes (person, bicycle, etc.), and also `null` when every make/model pred (or the bodystyle pred) is below the 0.25 confidence floor. `year` is `null` when `make_model` is `null` or its top label has no trailing year.
-
-With `annotate=true`, an `"annotated"` field is added alongside `vehicles`:
-```json
-{"name": "car.jpg", "type": "image", "vehicles": [...],
- "annotated": "data:image/jpeg;base64,/9j/4AAQ..."}
-```
-For video/stream, `annotated` is per-frame; for zip, per-image.
+`vehicle_type` mirrors `det_class` for every detection (free from the YOLO pass, no classification needed). `make_model`/`year`/`color`/`bodystyle` are only filled for car/bus/truck/motorbike detections (`CLASSIFY_CLS` — note `DET_WEIGHTS` uses `motorbike`, not COCO's `motorcycle`) — `null` for other YOLO classes (bicycle, etc.), and also `null` when every make/model pred (or the bodystyle pred) is below the 0.25 confidence floor. `year` is `null` when `make_model` is `null` or its top label has no trailing year.
 
 **Video / stream (classify):**
 ```json
@@ -120,7 +106,7 @@ For video/stream, `annotated` is per-frame; for zip, per-image.
 ```json
 {"name": "batch.zip", "type": "zip", "predictions": [[{"label": "...", "confidence": 0.6}], ...]}
 ```
-With `detect=true`: `{"name": "...", "type": "zip", "images": [{"vehicles": [...]}]}` (each image also gets `annotated` when `annotate=true`).
+With `detect=true`: `{"name": "...", "type": "zip", "images": [{"vehicles": [...]}]}`.
 
 **Per-input error** (one bad input doesn't fail the request):
 ```json

@@ -17,9 +17,8 @@
 |------|--------|------|-------|
 | Health | GET | `/health` | Class count + device. |
 | Predict — image | POST | `/predict` | `form-data` `files` = image file. |
-| Predict — image + detect | POST | `/predict?detect=true` | Adds YOLO bbox + per-vehicle make/model (car/bus/truck). |
-| Predict — image + annotate | POST | `/predict?annotate=true` | Adds `annotated` base64 image with boxes + top make/model label drawn. Implies `detect`. |
-| Predict — image (raw JPEG) | POST | `/predict?image=true` | Returns annotated **first** image as raw `image/jpeg` (renders in Postman). Implies `detect`. |
+| Predict — image + detect | POST | `/predict?detect=true` | Adds YOLO bbox + per-vehicle make/model/year/color/bodystyle (car/bus/truck/motorbike). |
+| Predict — image (raw JPEG) | POST | `/predict?image=true` | Returns **first** image with boxes drawn as raw `image/jpeg` (renders in Postman). Implies `detect`. |
 | Predict — video | POST | `/predict` | `form-data` `files` = video; per-frame results. |
 | Predict — zip batch | POST | `/predict` | `form-data` `files` = zip of images. |
 | Predict — stream URL | POST | `/predict` | `form-data` `urls` = rtsp/http stream. |
@@ -31,7 +30,7 @@
 
 ## Query params
 
-`topk` (int, default 3), `detect` (bool, default false), `annotate` (bool, default false; implies `detect`), and `image` (bool, default false; implies `detect`; returns raw JPEG) are query params, pre-filled on the relevant requests and toggleable via the Params tab. Make/model preds below `0.25` confidence are dropped.
+`topk` (int, default 3), `detect` (bool, default false), and `image` (bool, default false; implies `detect`; returns raw JPEG) are query params, pre-filled on the relevant requests and toggleable via the Params tab. Make/model preds below `0.25` confidence are dropped.
 
 ## Quick test
 

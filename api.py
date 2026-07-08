@@ -11,7 +11,6 @@ One endpoint. Smart-accepts many files at once + stream URLs:
 import io
 import re
 import sys
-import base64
 import zipfile
 import socket
 import logging
@@ -33,7 +32,7 @@ from color_heuristic import estimate_color  # noqa: E402
 CKPT = "model.pt"
 BODYSTYLE_CKPT = "models/bodystyle_model.pt"
 DET_WEIGHTS = "weights/vehicle/vehicle_yolov9s_640_30oct2025.pt"
-CLASSIFY_CLS = {"car", "bus", "truck", "motorcycle"}  # crop+classify these; vn_vmmr adds 356+ real motorbike make/model classes
+CLASSIFY_CLS = {"car", "bus", "truck", "motorbike"}  # crop+classify these; matches DET_WEIGHTS' actual class names (bicycle/bus/car/motorbike/truck), NOT stock COCO's "motorcycle" -- vn_vmmr adds 356+ real motorbike make/model classes
 MAX_FRAMES = 16          # ponytail: cap frames/video so a long clip or live stream can't run forever
 FRAME_STRIDE = 15        # ~1 fps at 15fps source; raise to sample sparser
 IMG_EXT = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif", ".tif", ".tiff"}
@@ -151,14 +150,9 @@ def _draw_bytes(img: Image.Image, vehicles) -> bytes:
     return b.getvalue()
 
 
-def _annotated(img: Image.Image, vehicles) -> str:
-    """JPEG bytes -> base64 data-URI."""
-    return "data:image/jpeg;base64," + base64.b64encode(_draw_bytes(img, vehicles)).decode()
-
-
-def detect_frame(img: Image.Image, track: bool, topk: int, annotate: bool = False):
-    """Detect vehicles, crop+classify make/model for car/bus/truck. track=True -> persistent IDs.
-    Returns {"vehicles": [...], "annotated": <data-uri>?}."""
+def detect_frame(img: Image.Image, track: bool, topk: int):
+    """Detect vehicles, crop+classify make/model for car/bus/truck/motorbike. track=True -> persistent IDs.
+    Returns {"vehicles": [...]}."""
     m = yolo()
     res = (m.track(img, persist=True, verbose=False) if track else m.predict(img, verbose=False))[0]
     vehicles, crops, to_fill = [], [], []
@@ -180,10 +174,7 @@ def detect_frame(img: Image.Image, track: bool, topk: int, annotate: bool = Fals
             v["year"] = _parse_year(p[0]["label"])
         v["color"] = estimate_color(crop)
         v["bodystyle"] = bs
-    out = {"vehicles": vehicles}
-    if annotate:
-        out["annotated"] = _annotated(img, vehicles)
-    return out
+    return {"vehicles": vehicles}
 
 
 def safe_stream_url(u: str) -> str:
@@ -232,7 +223,7 @@ def sample_frames(source, options=None):
     return frames
 
 
-def handle(name: str, data: bytes, topk: int, detect: bool, annotate: bool = False):
+def handle(name: str, data: bytes, topk: int, detect: bool):
     ext = "." + name.rsplit(".", 1)[-1].lower() if "." in name else ""
     if zipfile.is_zipfile(io.BytesIO(data)):
         imgs = []
@@ -242,38 +233,36 @@ def handle(name: str, data: bytes, topk: int, detect: bool, annotate: bool = Fal
                     imgs.append(Image.open(io.BytesIO(z.read(m))).convert("RGB"))
         if detect:
             return {"name": name, "type": "zip",
-                    "images": [detect_frame(i, False, topk, annotate) for i in imgs]}
+                    "images": [detect_frame(i, False, topk) for i in imgs]}
         return {"name": name, "type": "zip", "predictions": classify(imgs, topk)}
     if ext in IMG_EXT:
         img = Image.open(io.BytesIO(data)).convert("RGB")
         if detect:
-            return {"name": name, "type": "image", **detect_frame(img, False, topk, annotate)}
+            return {"name": name, "type": "image", **detect_frame(img, False, topk)}
         return {"name": name, "type": "image", "predictions": classify([img], topk)[0]}
     # else: treat as video. pipe-only protocol allowlist: a malicious container can't make
     # ffmpeg open file:/concat:/http: external resources (arbitrary file read / SSRF).
     frames = sample_frames(io.BytesIO(data), options={"protocol_whitelist": "pipe"})
     if detect:
         return {"name": name, "type": "video",
-                "frames": [{"frame": i, **detect_frame(f, True, topk, annotate)} for i, f in enumerate(frames)]}
+                "frames": [{"frame": i, **detect_frame(f, True, topk)} for i, f in enumerate(frames)]}
     return {"name": name, "type": "video", "frames": classify(frames, topk)}
 
 
 @app.post("/predict")
 async def predict(files: List[UploadFile] = File(default=[]),
                   urls: List[str] = Form(default=[]), topk: int = 3,
-                  detect: bool = False, annotate: bool = False,
-                  image: bool = False):
-    detect = detect or annotate  # annotation needs boxes; imply detect
-    if image:  # return the annotated first image as raw JPEG (so Postman/browser renders it)
+                  detect: bool = False, image: bool = False):
+    if image:  # return the annotated first image as raw JPEG (so Postman/browser renders it); implies detect
         if not files:
             return {"error": "image=true needs an uploaded image file"}
         img = Image.open(io.BytesIO(await files[0].read())).convert("RGB")
-        out = detect_frame(img, False, topk)  # classifies cars -> make_model
+        out = detect_frame(img, False, topk)
         return Response(_draw_bytes(img, out["vehicles"]), media_type="image/jpeg")
     results = []
     for f in files:
         try:
-            results.append(handle(f.filename or "upload", await f.read(), topk, detect, annotate))
+            results.append(handle(f.filename or "upload", await f.read(), topk, detect))
         except Exception:
             log.exception("failed processing file %s", f.filename)
             results.append({"name": f.filename, "error": "processing failed"})
@@ -281,7 +270,7 @@ async def predict(files: List[UploadFile] = File(default=[]),
         try:
             frames = sample_frames(safe_stream_url(u), options={"protocol_whitelist": PROTO_WHITELIST})
             if detect:
-                out = [{"frame": i, **detect_frame(f, True, topk, annotate)} for i, f in enumerate(frames)]
+                out = [{"frame": i, **detect_frame(f, True, topk)} for i, f in enumerate(frames)]
             else:
                 out = classify(frames, topk)
             results.append({"name": u, "type": "stream", "frames": out})

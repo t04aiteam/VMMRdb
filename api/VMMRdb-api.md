@@ -1,6 +1,6 @@
 # VMMRdb Classifier API
 
-Vehicle make/model classifier (ResNet50, 9169 VMMRdb classes) with optional YOLO vehicle detection.
+Vehicle make/model classifier (ResNet50, trained on merged VMMRdb + vn_vmmr + DVM_vmmr; class count via `GET /health`) with optional YOLO vehicle detection. `detect=true` also returns `vehicle_type`, `year`, `color`, and `bodystyle` per detected vehicle.
 
 ## Run
 
@@ -30,13 +30,13 @@ Smart-accepts mixed files **and** stream URLs in one request. Each input is auto
 | `files` | file (repeatable) | `[]` | Images, videos, or zips. Repeat field for multiple. |
 | `urls` | string (repeatable) | `[]` | Stream URLs. SSRF-guarded: scheme allowlist + internal/loopback/link-local hosts rejected. |
 | `topk` | int (query) | `3` | Top-K labels per prediction. |
-| `detect` | bool (query) | `false` | `true` → run YOLO vehicle detection, then crop+classify make/model for car/bus/truck. |
+| `detect` | bool (query) | `false` | `true` → run YOLO vehicle detection, then crop+classify make/model/year/color/bodystyle for car/bus/truck/motorcycle. |
 | `annotate` | bool (query) | `false` | `true` → also return an annotated image (boxes + top make/model label drawn) as a base64 data-URI. Implies `detect`. |
 | `image` | bool (query) | `false` | `true` → return the annotated **first** image as a raw `image/jpeg` body (renders in Postman/browser) instead of JSON. Implies `detect`. |
 
 `topk`, `detect`, `annotate`, `image` are query params; `files`/`urls` are form fields.
 
-Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them). Annotated boxes: green = classified car (shows `make_model 0.xx`), orange = other/unclassified (shows `det_class 0.xx`).
+Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them); `bodystyle` uses the same 0.25 floor and is `null` below it. Annotated boxes: green = classified vehicle (shows `make_model 0.xx`), orange = other/unclassified (shows `det_class 0.xx`).
 
 ### Example
 
@@ -86,12 +86,16 @@ Top-level `{"results": [...]}`, one entry per input (files first, then urls). Sh
       "bbox": [34, 50, 220, 180],
       "det_class": "car",
       "det_conf": 0.91,
-      "make_model": [{"label": "honda_civic_2015", "confidence": 0.81}]
+      "vehicle_type": "car",
+      "make_model": [{"label": "honda_civic_2015", "confidence": 0.81}],
+      "year": 2015,
+      "color": {"color": "silver", "confidence": 0.62},
+      "bodystyle": {"label": "sedan", "confidence": 0.84}
     }
   ]
 }
 ```
-`make_model` is `null` for non-car/bus/truck detections (bicycle/motorbike have no VMMRdb make/model), and also when every pred is below the 0.25 confidence floor.
+`vehicle_type` mirrors `det_class` for every detection (free from the YOLO pass, no classification needed). `make_model`/`year`/`color`/`bodystyle` are only filled for car/bus/truck/motorcycle detections (`CLASSIFY_CLS`) — `null` for other YOLO classes (person, bicycle, etc.), and also `null` when every make/model pred (or the bodystyle pred) is below the 0.25 confidence floor. `year` is `null` when `make_model` is `null` or its top label has no trailing year.
 
 With `annotate=true`, an `"annotated"` field is added alongside `vehicles`:
 ```json
@@ -132,10 +136,10 @@ curl http://100.111.0.111:8100/health
 ```
 
 ```json
-{"classes": 9169, "device": "cuda"}
+{"classes": 15288, "device": "cuda", "bodystyle_available": true}
 ```
 
-`device` is `cuda` or `cpu`.
+`device` is `cuda` or `cpu`. `bodystyle_available` reflects whether `models/bodystyle_model.pt` is present — when `false`, `bodystyle` is always `null` in `/predict` responses.
 
 ---
 

@@ -33,7 +33,7 @@ from color_heuristic import estimate_color  # noqa: E402
 CKPT = "model.pt"
 BODYSTYLE_CKPT = "models/bodystyle_model.pt"
 DET_WEIGHTS = "weights/vehicle/vehicle_yolov9s_640_30oct2025.pt"
-CLASSIFY_CLS = {"car", "bus", "truck"}  # crop+classify these; bicycle/motorbike have no VMMRdb make/model
+CLASSIFY_CLS = {"car", "bus", "truck", "motorcycle"}  # crop+classify these; vn_vmmr adds 356+ real motorbike make/model classes
 MAX_FRAMES = 16          # ponytail: cap frames/video so a long clip or live stream can't run forever
 FRAME_STRIDE = 15        # ~1 fps at 15fps source; raise to sample sparser
 IMG_EXT = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif", ".tif", ".tiff"}

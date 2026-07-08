@@ -85,6 +85,33 @@ def _parse_year(label: str):
     return int(m.group()) if m else None
 
 
+# Data-derived, not guessed: every class-label prefix (before the first "_") that
+# turned out to actually be a two/three-word make, found by checking (a) VMMRdb's raw
+# folder names, which preserve a literal space for multi-word makes (e.g.
+# "alfa romeo_4c_2015"), and (b) DVM-CAR's pre-slug Automaker list (e.g. "Land Rover").
+# vn_vmmr/DVM_vmmr flatten spaces to "_" via naming.slug(), so both a space-joined and
+# an underscore-joined form of each entry are checked below.
+MULTIWORD_MAKES = [
+    "alfa romeo", "am general", "aston martin", "can am", "mercedes benz",
+    "great wall", "land rover", "london taxis international",
+]
+
+
+def _parse_make_model(label: str):
+    """'honda_crx_1990' -> ('honda', 'crx'); 'alfa romeo_4c_2015' -> ('alfa romeo', '4c');
+    'land_rover_defender_2015' -> ('land rover', 'defender'). The year (if any) is
+    stripped first; whatever's left splits at the first "_" into make/model, except for
+    the known MULTIWORD_MAKES, whose prefix is matched before splitting."""
+    year = _parse_year(label)
+    base = label[: -(len(str(year)) + 1)] if year and label.endswith(f"_{year}") else label
+    for mw in MULTIWORD_MAKES:
+        for prefix in (mw, mw.replace(" ", "_")):
+            if base == prefix or base.startswith(prefix + "_"):
+                return mw, (base[len(prefix):].lstrip("_") or None)
+    make, _, model = base.partition("_")
+    return make, (model or None)
+
+
 _bodystyle = None
 def bodystyle_model():  # lazy: only load if models/bodystyle_model.pt exists and is first requested
     global _bodystyle
@@ -130,18 +157,32 @@ def _font(size: int):
         return ImageFont.load_default()  # ponytail: tiny on huge imgs; bundle a ttf if it matters
 
 
+def _label_lines(v) -> str:
+    """vehicle_type+conf, then make_model+conf, then color+conf, then bodystyle+conf --
+    one per line, each only if present."""
+    lines = [f'{v["vehicle_type"]} {v["det_conf"]:.2f}']
+    mm = v.get("make_model")
+    if mm:
+        lines.append(f'{mm[0]["label"]} {mm[0]["confidence"]:.2f}')
+    c = v.get("color")
+    if c:
+        lines.append(f'{c["color"]} {c["confidence"]:.2f}')
+    bs = v.get("bodystyle")
+    if bs:
+        lines.append(f'{bs["label"]} {bs["confidence"]:.2f}')
+    return "\n".join(lines)
+
+
 def _draw_bytes(img: Image.Image, vehicles) -> bytes:
-    """Draw det boxes + top make/model label per vehicle -> JPEG bytes."""
+    """Draw det boxes + vehicle_type/make_model/color/bodystyle label per vehicle -> JPEG bytes."""
     im = img.convert("RGB").copy()
     d = ImageDraw.Draw(im)
     w = max(2, im.width // 600)
     font = _font(max(14, im.width // 70))
     for v in vehicles:
         x1, y1, x2, y2 = v["bbox"]
-        mm = v.get("make_model")
-        label = (f'{mm[0]["label"]} {mm[0]["confidence"]:.2f}' if mm
-                 else f'{v["det_class"]} {v["det_conf"]:.2f}')
-        color = (0, 200, 0) if mm else (255, 140, 0)  # green=classified car, orange=other
+        label = _label_lines(v)
+        color = (0, 200, 0) if v.get("make_model") else (255, 140, 0)  # green=classified vehicle, orange=other
         d.rectangle([x1, y1, x2, y2], outline=color, width=w)
         tb = d.textbbox((x1, y1), label, font=font)
         d.rectangle([tb[0], tb[1], tb[2], tb[3]], fill=color)
@@ -160,8 +201,8 @@ def detect_frame(img: Image.Image, track: bool, topk: int):
         xyxy = [round(v) for v in b.xyxy[0].tolist()]
         det_class = m.names[int(b.cls)]
         v = {"bbox": xyxy, "det_class": det_class, "det_conf": round(float(b.conf), 4),
-             "vehicle_type": det_class, "make_model": None, "year": None, "color": None,
-             "bodystyle": None}
+             "vehicle_type": det_class, "make_model": None, "make": None, "model": None,
+             "year": None, "color": None, "bodystyle": None}
         if track:
             v["track_id"] = int(b.id) if b.id is not None else None
         if v["det_class"] in CLASSIFY_CLS:
@@ -172,6 +213,7 @@ def detect_frame(img: Image.Image, track: bool, topk: int):
         v["make_model"] = p or None  # None when all preds below CONF_MIN
         if p:
             v["year"] = _parse_year(p[0]["label"])
+            v["make"], v["model"] = _parse_make_model(p[0]["label"])
         v["color"] = estimate_color(crop)
         v["bodystyle"] = bs
     return {"vehicles": vehicles}

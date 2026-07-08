@@ -18,6 +18,10 @@ import api  # loads tmp/model.pt
 assert api._parse_year("honda_civic_2012") == 2012
 assert api._parse_year("aito_ask_world_m5") is None
 
+assert api._parse_make_model("honda_civic_2012") == ("honda", "civic")
+assert api._parse_make_model("alfa romeo_4c_2015") == ("alfa romeo", "4c")
+assert api._parse_make_model("mercedes_benz_c_class_2001") == ("mercedes benz", "c_class")
+
 def jpg_bytes(color):
     b = io.BytesIO(); Image.new("RGB", (300, 300), color).save(b, "JPEG"); return b.getvalue()
 
@@ -69,6 +73,7 @@ if real:
     classified = [v for v in r["vehicles"] if v["det_class"] in api.CLASSIFY_CLS]
     assert all(isinstance(v["color"], dict) and "color" in v["color"] for v in classified), classified
     assert all("year" in v for v in classified), classified
+    assert all("make" in v and "model" in v for v in classified), classified
     assert all("bodystyle" in v for v in classified), classified  # None if models/bodystyle_model.pt absent
     print(f"DETECT OK: {len(r['vehicles'])} vehicle(s) on {Path(real[0]).parent.name}")
 else:

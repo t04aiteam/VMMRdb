@@ -31,11 +31,11 @@ Smart-accepts mixed files **and** stream URLs in one request. Each input is auto
 | `urls` | string (repeatable) | `[]` | Stream URLs. SSRF-guarded: scheme allowlist + internal/loopback/link-local hosts rejected. |
 | `topk` | int (query) | `3` | Top-K labels per prediction. |
 | `detect` | bool (query) | `false` | `true` → run YOLO vehicle detection, then crop+classify make/model/year/color/bodystyle for car/bus/truck/motorbike. |
-| `image` | bool (query) | `false` | `true` → return the detected **first** image, boxes drawn, as a raw `image/jpeg` body (renders in Postman/browser) instead of JSON. Implies `detect`. |
+| `image` | bool (query) | `false` | `true` → return the detected **first** image, boxes + full label drawn, as a raw `image/jpeg` body (renders in Postman/browser) instead of JSON. Implies `detect`. |
 
 `topk`, `detect`, `image` are query params; `files`/`urls` are form fields.
 
-Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them); `bodystyle` uses the same 0.25 floor and is `null` below it. Boxes in the `image=true` render: green = classified vehicle (shows `make_model 0.xx`), orange = other/unclassified (shows `det_class 0.xx`).
+Make/model labels below `confidence` **0.25** are dropped (`make_model` becomes `null` / pred list omits them); `bodystyle` uses the same 0.25 floor and is `null` below it. Boxes in the `image=true` render: green = classified vehicle, orange = other/unclassified. Each box's label stacks whatever's available, one per line, in this order: `vehicle_type conf` → `make_model conf` → `color conf` → `bodystyle conf` (lines for `null` fields are skipped).
 
 ### Example
 
@@ -81,6 +81,8 @@ Top-level `{"results": [...]}`, one entry per input (files first, then urls). Sh
       "det_conf": 0.91,
       "vehicle_type": "car",
       "make_model": [{"label": "honda_civic_2015", "confidence": 0.81}],
+      "make": "honda",
+      "model": "civic",
       "year": 2015,
       "color": {"color": "silver", "confidence": 0.62},
       "bodystyle": {"label": "sedan", "confidence": 0.84}
@@ -88,7 +90,7 @@ Top-level `{"results": [...]}`, one entry per input (files first, then urls). Sh
   ]
 }
 ```
-`vehicle_type` mirrors `det_class` for every detection (free from the YOLO pass, no classification needed). `make_model`/`year`/`color`/`bodystyle` are only filled for car/bus/truck/motorbike detections (`CLASSIFY_CLS` — note `DET_WEIGHTS` uses `motorbike`, not COCO's `motorcycle`) — `null` for other YOLO classes (bicycle, etc.), and also `null` when every make/model pred (or the bodystyle pred) is below the 0.25 confidence floor. `year` is `null` when `make_model` is `null` or its top label has no trailing year.
+`vehicle_type` mirrors `det_class` for every detection (free from the YOLO pass, no classification needed). `make_model`/`make`/`model`/`year`/`color`/`bodystyle` are only filled for car/bus/truck/motorbike detections (`CLASSIFY_CLS` — note `DET_WEIGHTS` uses `motorbike`, not COCO's `motorcycle`) — `null` for other YOLO classes (bicycle, etc.), and also `null` when every make/model pred (or the bodystyle pred) is below the 0.25 confidence floor. `make`/`model` are split from `make_model`'s top label (e.g. `honda_civic_2015` → `honda` + `civic`); a small known-list handles multi-word makes (`mercedes benz`, `land rover`, `alfa romeo`, ...), otherwise it splits on the first `_`. `year` is `null` when `make_model` is `null` or its top label has no trailing year.
 
 **Video / stream (classify):**
 ```json
